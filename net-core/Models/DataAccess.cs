@@ -15,12 +15,7 @@ namespace NetCore.Models
         {
             _client = new MongoClient("mongodb://localhost:27017");
             _server = _client.GetServer();
-            _db = _server.GetDatabase("kiki-art");
-        }
-
-        public Account GetAccount()
-        {
-            return (Account)_db.GetCollection("account").FindOneAs(typeof(Account));
+            _db = _server.GetDatabase("household");
         }
 
         public IEnumerable<Toy> GetToys()
