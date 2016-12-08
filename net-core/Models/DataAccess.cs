@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -11,11 +12,12 @@ namespace NetCore.Models
         MongoServer _server;
         MongoDatabase _db;
 
-        public DataAccess() 
+        public DataAccess(IOptions<Settings> settings) 
         {
-            _client = new MongoClient("mongodb://localhost:27017");
+            var db = settings.Value;
+            _client = new MongoClient(db.ConnectionString);
             _server = _client.GetServer();
-            _db = _server.GetDatabase("household");
+            _db = _server.GetDatabase(db.Database);
         }
 
         public IEnumerable<Toy> GetToys()
