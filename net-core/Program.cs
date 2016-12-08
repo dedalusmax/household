@@ -37,6 +37,8 @@ namespace NetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<DataAccess>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
+            
             services.AddMvc();
 
             // Add functionality to inject IOptions<T>
