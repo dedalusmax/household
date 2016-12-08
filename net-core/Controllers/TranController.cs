@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NetCore.Data;
 using NetCore.Models;
 
 namespace NetCore.Controllers
 {
-    public class TransactionsController : Controller
+    public class TranController : Controller
     {
-        private readonly ITransactionRepository _repo;
+        private readonly IRepository<Transaction> _repo;
     
-        public TransactionsController(ITransactionRepository TransactionRepository)
+        public TranController(IRepository<Transaction> repository)
         {
-            _repo = TransactionRepository;
+            _repo = repository;
         }
     
         [HttpGet]
@@ -22,24 +23,24 @@ namespace NetCore.Controllers
     
         private async Task<IEnumerable<Transaction>> GetTransactionAsync()
         {
-            return await _repo.GetAllTransactions();
+            return await _repo.GetAll();
         }
     
-        [HttpGet("{id}")]
-        public Task<Transaction> Get(string id)
+        [HttpGet]
+        public Task<Transaction> GetById(string id)
         {
             return GetTransactionByIdAsync(id);
         }
     
         private async Task<Transaction> GetTransactionByIdAsync(string id)
         {
-            return await _repo.GetTransaction(id) ?? new Transaction();
+            return await _repo.Get(id) ?? null;
         }
     
         [HttpPost]
         public void Post([FromBody]Transaction t)
         {
-            _repo.AddTransaction(new Transaction() { 
+            _repo.Create(new Transaction() { 
                 Date = t.Date,
                 CostCenter = t.CostCenter,
                 Category = t.Category, 
@@ -49,16 +50,16 @@ namespace NetCore.Controllers
             });
         }
     
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(string id, [FromBody]Transaction t)
         {
-            _repo.UpdateTransaction(id, t);
+            _repo.Update(id, t);
         }
     
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public void Delete(string id)
         {
-            _repo.RemoveTransaction(id);
+            _repo.Remove(id);
         }
     }
 }

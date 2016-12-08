@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCore.Data;
 using NetCore.Models;
 
 namespace NetCore
@@ -38,6 +39,7 @@ namespace NetCore
         {
             services.AddTransient<DataAccess>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IRepository<Transaction>, TransactionRepo>();
             
             services.AddMvc();
 

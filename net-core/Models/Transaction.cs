@@ -1,14 +1,10 @@
 using System;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+using NetCore.Data;
 
 namespace NetCore.Models 
 {
-    public class Transaction 
+    public class Transaction : DataEntity
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
-
         public DateTime Date { get; set; } = DateTime.Now;
 
         public string CostCenter { get; set; } = string.Empty;
