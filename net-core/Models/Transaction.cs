@@ -1,10 +1,12 @@
 using System;
+using MongoDB.Bson.Serialization.Attributes;
 using NetCore.Data;
 
 namespace NetCore.Models 
 {
     public class Transaction : DataEntity
     {
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime Date { get; set; } = DateTime.Now;
 
         public string CostCenter { get; set; } = string.Empty;
@@ -16,5 +18,7 @@ namespace NetCore.Models
         public double Amount { get; set; } = 0.0;
 
         public string Account { get; set; } = "GOT";
+
+        public Account Transfer { get; set; }
     }
 }

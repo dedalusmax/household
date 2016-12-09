@@ -40,14 +40,15 @@ namespace NetCore.Controllers
         [HttpPost]
         public void Post([FromBody]Transaction t)
         {
-            _repo.Create(new Transaction() { 
-                Date = t.Date,
-                CostCenter = t.CostCenter,
-                Category = t.Category, 
-                Description = t.Description,
-                Amount = t.Amount,
-                Account = t.Account
-            });
+            // _repo.Create(new Transaction() { 
+            //     Date = t.Date,
+            //     CostCenter = t.CostCenter,
+            //     Category = t.Category, 
+            //     Description = t.Description,
+            //     Amount = t.Amount,
+            //     Account = t.Account
+            // });
+            _repo.Create(t);
         }
     
         [HttpPut]
