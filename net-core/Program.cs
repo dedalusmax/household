@@ -37,9 +37,10 @@ namespace NetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IRepository<Transaction>, TransactionRepository>();
-            services.AddTransient<ProfileRepository>();
-            
+            services.AddSingleton<IRepository<Transaction>, TransactionRepository>();
+            services.AddSingleton<ProfileRepository>();
+            services.AddSingleton<ReportsRepository>();
+
             services.AddMvc();
 
             // Add functionality to inject IOptions<T>
@@ -59,6 +60,8 @@ namespace NetCore
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvcWithDefaultRoute();
+
+            app.ApplicationServices.GetService<IRepository<Transaction>>();
         }
     }
 }
