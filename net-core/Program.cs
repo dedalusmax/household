@@ -38,7 +38,6 @@ namespace NetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<DataAccess>();
-            services.AddTransient<ITransactionRepository, TransactionRepository>();
             services.AddSingleton<IRepository<Transaction>, TransactionRepo>();
             
             services.AddMvc();

@@ -61,5 +61,11 @@ namespace NetCore.Controllers
         {
             _repo.Remove(id);
         }
+
+        [HttpDelete]
+        public void DeleteAll()
+        {
+            _repo.RemoveAll();
+        }
     }
 }
