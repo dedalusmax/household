@@ -12,7 +12,7 @@ namespace NetCore.Models
 
         public int Month { get; set; }
 
-        public List<CategorySummary> Incomes { get; set; }
+        public List<CategorySummary> Income { get; set; }
 
         public List<CategorySummary> Expenses { get; set; }
 
@@ -27,7 +27,7 @@ namespace NetCore.Models
         public List<Account> AccountsBalance { get; set; }
 
         public MonthlyBudget() {
-            Incomes = new List<CategorySummary>();
+            Income = new List<CategorySummary>();
             Expenses = new List<CategorySummary>();
             AccountsBalance = new List<Account>();
         }

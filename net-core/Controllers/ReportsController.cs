@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCore.Data;
@@ -36,26 +37,58 @@ namespace NetCore.Controllers
 
                 report = new MonthlyBudget();
 
-                report.CreatedDate = DateTime.Now;
                 report.Year = year;
                 report.Month = month;
+
+                report = await GenerateReport(report);
 
                 return await _repo.Create(report) ?? null;
 
             } else {
-                report.CreatedDate = DateTime.Now;
+                report = await GenerateReport(report);
                 
                 _repo.Update(report.Id.ToString(), report);
                 return report;
             }
+        }
 
-            // var report = await _repo.GetMonthlyBudget(year, month) ?? new MonthlyBudget() {
-            //     CreatedDate = DateTime.Now,
-            //     Year = year,
-            //     Month = month
-            // };
+        private async Task<MonthlyBudget> GenerateReport(MonthlyBudget report) 
+        {
+            report.CreatedDate = DateTime.Now;
 
-            //return await _repo.Create(report) ?? null;
+            var transactions = await _transactionRepo.GetForMonth(report.Year, report.Month);
+
+            foreach (var transaction in transactions) 
+            {
+                if (transaction.Category.Contains("TRANSFER")) {
+                    // ignore this document
+                } else if (transaction.Category.StartsWith("R")) {
+                    AddInCollection(transaction, report.Income);
+                } else if (transaction.Category.StartsWith("A") || transaction.Category.StartsWith("B") || transaction.Category.StartsWith("C")) {
+                    AddInCollection(transaction, report.Expenses);
+                } else if (transaction.Category.StartsWith("D")) {
+                    AddInCollection(transaction, report.Debts);
+                } else {
+                    AddInCollection(transaction, report.Outages);
+                }
+            }
+
+            return report;
+        }
+
+        private void AddInCollection(Transaction transaction, List<CategorySummary> collection) 
+        {
+            var category = collection.Find(c => c.Category == transaction.Category);
+            if (category == null) {
+                collection.Add(new CategorySummary() {
+                    Category = transaction.Category,
+                    Sum = transaction.Amount,
+                    Notes = transaction.Description 
+                });
+            } else {
+                category.Sum += transaction.Amount;
+                category.Notes += ", " + transaction.Description;
+            }
         }
     }
 }
