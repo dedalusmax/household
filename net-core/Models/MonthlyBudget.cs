@@ -29,7 +29,20 @@ namespace NetCore.Models
         public MonthlyBudget() {
             Income = new List<CategorySummary>();
             Expenses = new List<CategorySummary>();
+            Debts = new List<CategorySummary>();
+            Outages = new List<CategorySummary>();
             AccountsBalance = new List<Account>();
+        }
+
+        public void Clean() 
+        {
+            Income.Clear();
+            Expenses.Clear();
+            Total = 0.0;
+            Debts.Clear();
+            CleanTotal = 0.0;
+            Outages.Clear();
+            AccountsBalance.Clear();
         }
     }
 }

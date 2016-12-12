@@ -45,6 +45,8 @@ namespace NetCore.Controllers
                 return await _repo.Create(report) ?? null;
 
             } else {
+                report.Clean();
+
                 report = await GenerateReport(report);
                 
                 _repo.Update(report.Id.ToString(), report);
@@ -89,6 +91,12 @@ namespace NetCore.Controllers
                 category.Sum += transaction.Amount;
                 category.Notes += ", " + transaction.Description;
             }
+        }
+
+        [HttpDelete]
+        public async void DeleteMonthlyBudget(int year, int month)
+        {
+            await _repo.DeleteMonthlyBudget(year, month);
         }
     }
 }

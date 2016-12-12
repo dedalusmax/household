@@ -18,5 +18,13 @@ namespace NetCore.Data
                 .Find<MonthlyBudget>(filter)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> DeleteMonthlyBudget(int year, int month)
+        {
+            var builder = Builders<MonthlyBudget>.Filter;
+            var filter = builder.Eq("Year", year) & builder.Eq("Month", month);
+            var result = await Collection.DeleteOneAsync(filter);
+            return result.DeletedCount > 0;
+        }
     }
 }
