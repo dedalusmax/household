@@ -37,6 +37,24 @@ namespace NetCore.Controllers
             return await _repo.Get(id) ?? null;
         }
     
+        [HttpGet]
+        public List<string> GetCostCenters()
+        {
+            return ((TransactionRepository)_repo).GetCostCenters();
+        }
+
+        [HttpGet]
+        public List<string> GetCategories()
+        {
+            return ((TransactionRepository)_repo).GetCategories();
+        }
+
+        [HttpGet]
+        public List<string> GetDescriptions()
+        {
+            return ((TransactionRepository)_repo).GetDescriptions();
+        }
+
         [HttpPost]
         public void Post([FromBody]Transaction t)
         {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using NetCore.Models;
+using System.Linq;
 
 namespace NetCore.Data
 {
@@ -24,6 +25,23 @@ namespace NetCore.Data
             return await Collection
                 .Find<Transaction>(filter)
                 .ToListAsync();
+        }
+
+        // suggestion lists:
+
+        public List<string> GetCostCenters()
+        {
+            return Collection.AsQueryable<Transaction>().Select(t => t.CostCenter).Distinct().ToList();
+        }
+
+        public List<string> GetCategories()
+        {
+            return Collection.AsQueryable<Transaction>().Select(t => t.Category).Distinct().ToList();
+        }
+
+        public List<string> GetDescriptions()
+        {
+            return Collection.AsQueryable<Transaction>().Select(t => t.Description).Distinct().ToList();
         }
     }
 }
