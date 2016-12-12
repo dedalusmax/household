@@ -75,6 +75,13 @@ namespace NetCore.Controllers
                 }
             }
 
+            report.IncomeTotal = SumCollection(report.Income);
+            report.ExpensesTotal = SumCollection(report.Expenses);
+            report.Total = report.IncomeTotal - report.ExpensesTotal;
+            report.DebtsTotal = SumCollection(report.Debts);           
+            report.CleanTotal = report.Total - report.DebtsTotal;
+            report.OutagesTotal = SumCollection(report.Outages);
+
             return report;
         }
 
@@ -91,6 +98,15 @@ namespace NetCore.Controllers
                 category.Sum += transaction.Amount;
                 category.Notes += ", " + transaction.Description;
             }
+        }
+
+        private double SumCollection(List<CategorySummary> collection) 
+        {
+            var total = 0.0;
+            foreach (var item in collection) {
+                total += item.Sum;
+            }
+            return total;
         }
 
         [HttpDelete]

@@ -14,15 +14,23 @@ namespace NetCore.Models
 
         public List<CategorySummary> Income { get; set; }
 
+        public double IncomeTotal { get; set; } = 0.0;
+
         public List<CategorySummary> Expenses { get; set; }
+
+        public double ExpensesTotal { get; set; } = 0.0;
 
         public double Total { get; set; } = 0.0;
 
         public List<CategorySummary> Debts { get; set; }
 
+        public double DebtsTotal { get; set; } = 0.0;
+
         public double CleanTotal { get; set; } = 0.0;
 
         public List<CategorySummary> Outages { get; set; }
+
+        public double OutagesTotal { get; set; } = 0.0;
 
         public List<Account> AccountsBalance { get; set; }
 
@@ -36,12 +44,16 @@ namespace NetCore.Models
 
         public void Clean() 
         {
-            Income.Clear();
+            Income.Clear(); 
+            IncomeTotal = 0.0;
             Expenses.Clear();
+            ExpensesTotal = 0.0;
             Total = 0.0;
             Debts.Clear();
+            DebtsTotal = 0.0;
             CleanTotal = 0.0;
             Outages.Clear();
+            OutagesTotal = 0.0;
             AccountsBalance.Clear();
         }
     }
