@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using NetCore.Data;
 
-namespace NetCore.Models 
+namespace NetCore.Models
 {
     public class Profile : DataEntity
     {
@@ -17,13 +16,5 @@ namespace NetCore.Models
 
         [BsonIgnoreIfDefault]
         public DateTime LastLoginDate { get; set; }
-
-        public List<Account> CurrentBalance { get; set; }
-
-        public Profile() 
-        {
-            CurrentBalance = new List<Account>();
-            CurrentBalance.Add(new Account() { Name = "GOT", Amount = 0.00 } );
-        }
     }
 }
