@@ -1,26 +1,240 @@
 <div class="main-container">
           
-      <clr-alert [clrAlertType]="'alert-danger'" [clrAlertAppLevel]="true">
+      <clr-alert [clrAlertType]="'alert-warning'" [clrAlertAppLevel]="true" [clrAlertClosable]="false">
           <div class="alert-item">
               <span class="alert-text">
-                  This is an app level alert.
+                  Please log in or register. For the application usage you must be logged in.
               </span>
               <div class="alert-actions">
-                  <button class="btn alert-action">Fix</button>
+                  <button class="btn alert-action">Log In</button>
+                  <button class="btn alert-action">Register</button>
               </div>
           </div>
       </clr-alert>
       
-    <header class="header header-6">
+      <clr-alert [clrAlertType]="'alert-info'" [clrAlertAppLevel]="true" [clrAlertClosable]="true">
+          <div class="alert-item">
+              <span class="alert-text">
+                  You don't have any accounts configured. You won't be able to enter transactions without them.
+              </span>
+              <div class="alert-actions">
+                  <button class="btn alert-action">Configure My Accounts</button>
+              </div>
+          </div>
+      </clr-alert>
+      
+    <header class="header header-1">
         <div class="branding">
-                      <span class="title">Header</span>
+            <a href="..." class="nav-link">
+                <clr-icon shape="home"></clr-icon>
+                <span class="title">Household</span>
+            </a>
+        </div>
+        <div class="header-nav">
+              <a href="..." class="nav-link"><span class="nav-text">Dashboard</span></a>
+              <a href="..." class="nav-link"><span class="nav-text">Transactions</span></a>
+              <a href="..." class="nav-link"><span class="nav-text">Reports</span></a>
+              <a href="..." class="active nav-link"><span class="nav-text">Profile Management</span></a>
+          </div>
+          <div class="header-actions">
+              <span class="nav-link nav-text">
+                  Not logged in
+              </span>
+              <clr-dropdown class="dropdown bottom-right">
+                  <button class="nav-icon" clrDropdownToggle>
+                      <clr-icon shape="user"></clr-icon>
+                      <clr-icon shape="caret"></clr-icon>
+                  </button>
+                  <div class="dropdown-menu">
+                      <a href="..." clrDropdownItem>About</a>
+                      <a href="..." clrDropdownItem>Preferences</a>
+                      <a href="..." clrDropdownItem>Log out</a>
                   </div>
+              </clr-dropdown>
+          </div>
     </header>
     <nav class="subnav">
-        ...
+        <ul class="nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">My Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Accounts</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Synchronization</a>
+                  </li>
+              </ul>
     </nav>
     <div class="content-container">
         <div class="content-area">
+
+<form class="compact">
+<section class="form-block">
+              <label>Account</label>
+              <div class="form-group row">
+                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                  <label for="aForm_1">Account name</label>
+              </div>
+              <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                  <input type="text" id="aForm_1" placeholder="Enter account name" size="45">
+              </div>
+              <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+                  <label for="aForm_1">Code</label>
+              </div>
+              <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+                  <input type="text" id="aForm_2" placeholder="Few letters" size="10">
+              </div>
+              </div>
+            <div class="form-group row">
+                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_3">Type</label>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-12 col-xs-12">
+                <div class="select">
+                    <select id="aForm_3">
+                            <option>Pocket money</option>
+                            <option>Bank account</option>
+                            <option>Credit card</option>
+                        </select>
+                </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_3">Currency</label>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                <div class="select">
+                    <select id="aForm_3">
+                            <option>Hrvatska kuna (Kn)</option>
+                            <option>Euro (€)</option>
+                            <option>US Dollar ($)</option>
+                        </select>
+                </div>
+                </div>
+            </div>
+              <div class="form-group row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                  <label for="aForm_2">Initial balance</label>
+                  </div>
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                  <input type="number" id="aForm_2" size="15">
+                  <span>Kn</span>
+                  </div>
+              </div>                         
+              <div class="form-group row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                  <label for="aForm_4">Description</label>
+                  </div>
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                  <textarea id="aForm_4" rows="2"></textarea>
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Add</button>
+          </section>      </form>
+
+<clr-datagrid [(clrDgSelected)]="selected">
+    <clr-dg-column>Account name</clr-dg-column>
+    <clr-dg-column>Code</clr-dg-column>
+    <clr-dg-column>Initial balance</clr-dg-column>
+
+
+    <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
+        <clr-dg-cell>{{user.name}}</clr-dg-cell>
+        <clr-dg-cell>{{user.code}}</clr-dg-cell>
+        <clr-dg-cell>{{user.creation | date}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{users.length}} users</clr-dg-footer>
+</clr-datagrid>
+    Selected users: <span *ngFor="let user of selected">{{user.name}}</span>
+
+
+    <form>
+        <section class="form-block">
+            <label>Registration form</label>
+            <div class="form-group">
+                <label for="aForm_1" class="required">Your name</label>
+                <label for="validInput1" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation invalid tooltip-md">
+                      <input type="text" id="validInput1" placeholder="Enter your name" size="30">
+                      <span class="tooltip-content">
+                          This field cannot be empty!
+                      </span>
+                  </label>                
+            </div>
+            <div class="form-group">
+                <label for="aForm_1">Email address</label>
+                <input type="text" id="aForm_1" placeholder="Enter your email address" size="45">
+            </div>
+
+            <div class="form-group">
+                <label for="aForm_1">Username</label>
+                <input type="text" id="aForm_1" placeholder="Enter a unique username" size="25">
+            </div>
+            <div class="form-group">
+                <label for="aForm_2">Password</label>
+                <input type="password" id="aForm_2" placeholder="Enter password" size="25">
+            </div>
+            <div class="form-group">
+                <label for="aForm_3">Base currency</label>
+                <div class="select">
+                    <select id="aForm_3">
+                            <option>Hrvatska kuna (Kn)</option>
+                            <option>Euro (€)</option>
+                            <option>US Dollar ($)</option>
+                        </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="aForm_4">Language</label>
+                <div class="select">
+                    <select id="aForm_4">
+                            <option>English</option>
+                            <option>Hrvatski</option>
+                            <option>Deutsch</option>
+                        </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="aForm_5">Connected accounts</label>
+                <div class="toggle-switch">
+                          <input type="checkbox" id="othertoggle">
+                          <label for="othertoggle">Sync</label>
+                      </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="button" class="btn btn-default">Cancel</button>
+        </section>
+    </form>
+
+
+
+<div class="login-wrapper">
+              <form class="login">
+                  <label class="title">
+                      Household
+                  </label>
+                  <div class="login-group">
+                      <input class="username" type="text" id="login_username" placeholder="Username">
+                      <input class="password" type="password" id="login_password" placeholder="Password">
+                      <div class="checkbox">
+                          <input type="checkbox" id="rememberme">
+                          <label for="rememberme">
+                              Remember me
+                          </label>
+                      </div>
+                      <div class="error active">
+                          Invalid user name or password
+                      </div>
+                      <button type="submit" class="btn btn-primary">LOG IN</button>
+                      <a href="..." class="signup">Sign up for an account</a>
+                  </div>
+              </form>
+          </div>
+
+
+
             Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
 
       
@@ -76,8 +290,8 @@
           </div>
       </clr-alert>
         </div>
-        <nav class="sidenav">
+        <!--<nav class="sidenav">
             ...
-        </nav>
+        </nav>-->
     </div>
 </div>
