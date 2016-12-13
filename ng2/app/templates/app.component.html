@@ -1,0 +1,50 @@
+<div class="main-container">
+    <header class="header header-1">
+        <div class="branding">
+            <a href="#" class="nav-link">
+                <clr-icon shape="home"></clr-icon>
+                <span class="title">Household</span>
+            </a>
+        </div>
+        <div class="header-nav">
+              <a href="#" class="nav-link"><span class="nav-text">Dashboard</span></a>
+              <a href="#" class="nav-link"><span class="nav-text">Transactions</span></a>
+              <a href="#" class="nav-link"><span class="nav-text">Reports</span></a>
+              <a href="#" class="nav-link"><span class="nav-text">Profile Management</span></a>
+          </div>
+          <div class="header-actions">
+              <span class="nav-link nav-text">
+                  Not logged in
+              </span>
+              <clr-dropdown class="dropdown bottom-right">
+                  <button class="nav-icon" clrDropdownToggle>
+                      <clr-icon shape="user"></clr-icon>
+                      <clr-icon shape="caret"></clr-icon>
+                  </button>
+                  <div class="dropdown-menu">
+                      <a href="#" clrDropdownItem>About</a>
+                      <a href="#" clrDropdownItem>Preferences</a>
+                      <a href="#" clrDropdownItem>Log out</a>
+                  </div>
+              </clr-dropdown>
+          </div>
+    </header>
+    <nav class="subnav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Synchronization</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="content-container">
+        <div class="content-area">ž
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 <div class="main-container">
           
-      <clr-alert [clrAlertType]="'alert-warning'" [clrAlertAppLevel]="true" [clrAlertClosable]="false">
+      <clr-alert [clrAlertType]="'alert-warning'" [clrAlertAppLevel]="true">
           <div class="alert-item">
               <span class="alert-text">
                   Please log in or register. For the application usage you must be logged in.
@@ -9,7 +9,7 @@
                   <button class="btn alert-action">Log In</button>
                   <button class="btn alert-action">Register</button>
               </div>
-          </div>
+          </div> 
       </clr-alert>
       
       <clr-alert [clrAlertType]="'alert-info'" [clrAlertAppLevel]="true" [clrAlertClosable]="true">
@@ -210,28 +210,6 @@
 
 
 
-<div class="login-wrapper">
-              <form class="login">
-                  <label class="title">
-                      Household
-                  </label>
-                  <div class="login-group">
-                      <input class="username" type="text" id="login_username" placeholder="Username">
-                      <input class="password" type="password" id="login_password" placeholder="Password">
-                      <div class="checkbox">
-                          <input type="checkbox" id="rememberme">
-                          <label for="rememberme">
-                              Remember me
-                          </label>
-                      </div>
-                      <div class="error active">
-                          Invalid user name or password
-                      </div>
-                      <button type="submit" class="btn btn-primary">LOG IN</button>
-                      <a href="..." class="signup">Sign up for an account</a>
-                  </div>
-              </form>
-          </div>
 
 
 
