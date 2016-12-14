@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     var profile = this.authService.logIn(this.model).subscribe(
       data => {
-        if (data) {
+        if (data.id) { // this is an indication of valid profile
           // store the profile for latter guards
           this.authService.profile = data;
 
