@@ -1,24 +1,41 @@
-<form (ngSubmit)="login()" #f="ngForm" novalidate>
+<form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
     <section class="form-block">
-        <label>Login</label>
-        <div class="form-group">
 
+        <label>Login with an existing account</label>
+
+        <div class="form-group">
             <label for="txtUsername" class="required">Username</label>
-            <label for="txtUsername" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="f.form.valid">
-                <input id="txtUsername" class="form-control" type="text" placeholder="Enter your name" size="30" [(ngModel)]="model.username" name="username" required>
+            <label for="txtUsername" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="!username.valid && !username.pristine">
+                <input id="txtUsername" class="form-control" type="text" placeholder="Enter your username" size="30" [(ngModel)]="model.username" name="username" #username="ngModel" required>
                 <span class="tooltip-content">Username cannot be empty!</span>
             </label>
-
-            <input class="password form-control" type="password" placeholder="Password" [(ngModel)]="model.password" name="password" required>
-            <div class="checkbox">
-                <input type="checkbox" id="rememberme">
-                <label for="rememberme">Remember me</label>
-            </div>
-            <div class="error" [class.active]="showError">
-                Invalid user name or password
-            </div>
-            <button type="submit" class="btn btn-primary">LOG IN</button>
-            <a href="/register" class="signup">Register new account</a>
         </div>
+
+        <div class="form-group">
+            <label for="txtPassword" class="required">Password</label>
+            <label for="txtPassword" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="!password.valid && !password.pristine">
+                <input id="txtPassword" class="form-control" type="password" placeholder="Enter your password" size="30" [(ngModel)]="model.password" name="password" #password="ngModel" required>
+                <span class="tooltip-content">Password cannot be empty!</span>
+            </label>
+        </div>
+        
+        <div class="checkbox">
+            <input type="checkbox" id="chkRememberMe">
+            <label for="chkRememberMe">Remember me</label>
+        </div>
+        
+        <div *ngIf="showError" class="alert alert-danger">
+            <div class="alert-item">
+                <span class="alert-text">
+                    Invalid user name or password.
+                </span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">LOG IN</button>
+        
+        <p>
+            I don't have an account, and I would rather <a href="/register" class="signup">register new account</a>.   
+        </p>
     </section>
 </form>
