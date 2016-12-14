@@ -1,16 +1,24 @@
-<form class="login" name="form" (ngSubmit)="login()" #f="ngForm" novalidate>
-    <label class="title">Login</label>
-    <div class="login-group">
-        <input class="username form-control" type="text" placeholder="Username" [(ngModel)]="model.username" name="username" required>
-        <input class="password form-control" type="password" placeholder="Password" [(ngModel)]="model.password" name="password" required>
-        <div class="checkbox">
-            <input type="checkbox" id="rememberme">
-            <label for="rememberme">Remember me</label>
+<form (ngSubmit)="login()" #f="ngForm" novalidate>
+    <section class="form-block">
+        <label>Login</label>
+        <div class="form-group">
+
+            <label for="txtUsername" class="required">Username</label>
+            <label for="txtUsername" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="f.form.valid">
+                <input id="txtUsername" class="form-control" type="text" placeholder="Enter your name" size="30" [(ngModel)]="model.username" name="username" required>
+                <span class="tooltip-content">Username cannot be empty!</span>
+            </label>
+
+            <input class="password form-control" type="password" placeholder="Password" [(ngModel)]="model.password" name="password" required>
+            <div class="checkbox">
+                <input type="checkbox" id="rememberme">
+                <label for="rememberme">Remember me</label>
+            </div>
+            <div class="error" [class.active]="showError">
+                Invalid user name or password
+            </div>
+            <button type="submit" class="btn btn-primary">LOG IN</button>
+            <a href="/register" class="signup">Register new account</a>
         </div>
-        <div class="error" [class.active]="showError">
-            Invalid user name or password
-        </div>
-        <button type="submit" class="btn btn-primary">LOG IN</button>
-        <a href="/register" class="signup">Register new account</a>
-    </div>
+    </section>
 </form>

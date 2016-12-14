@@ -13,6 +13,7 @@ import { AuthGuard }      from './auth.guard';
 import { AuthService }    from './services/auth.service';
 
 import { AppComponent }   from './components/app.component';
+import { AboutComponent }   from './components/about.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { DashboardComponent } from './components/dashboard.component';
@@ -21,7 +22,7 @@ import { TabsDirective, TabDirective } from './directives/tabs.directive';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
-  declarations: [ AppComponent, LoginComponent, RegisterComponent, DashboardComponent, ProfileComponent, TabsDirective, TabDirective ],
+  declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, DashboardComponent, ProfileComponent, TabsDirective, TabDirective ],
   providers:    [ AuthService, AuthGuard ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]
 })
