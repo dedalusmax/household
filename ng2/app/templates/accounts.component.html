@@ -1,0 +1,81 @@
+<form class="compact">
+    <section class="form-block">
+        <label>Account</label>
+        <div class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_1">Account name</label>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                <input type="text" id="aForm_1" placeholder="Enter account name" size="45">
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+                <label for="aForm_1">Code</label>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12">
+                <input type="text" id="aForm_2" placeholder="Few letters" size="10">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_3">Type</label>
+            </div>
+            <div class="col-lg-4 col-md-8 col-sm-12 col-xs-12">
+                <div class="select">
+                    <select id="aForm_3">
+                            <option>Pocket money</option>
+                            <option>Bank account</option>
+                            <option>Credit card</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_3">Currency</label>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                <div class="select">
+                    <select id="aForm_3">
+                            <option>Hrvatska kuna (Kn)</option>
+                            <option>Euro (€)</option>
+                            <option>US Dollar ($)</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_2">Initial balance</label>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                <input type="number" id="aForm_2" size="15">
+                <span>Kn</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <label for="aForm_4">Description</label>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <textarea id="aForm_4" rows="2"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </section>
+</form>
+
+<clr-datagrid [(clrDgSelected)]="selected">
+    <clr-dg-column>Account name</clr-dg-column>
+    <clr-dg-column>Code</clr-dg-column>
+    <clr-dg-column>Initial balance</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
+        <clr-dg-cell>{{user.name}}</clr-dg-cell>
+        <clr-dg-cell>{{user.code}}</clr-dg-cell>
+        <clr-dg-cell>{{user.creation | date}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{users.length}} users</clr-dg-footer>
+</clr-datagrid>
+
+Selected users: <span *ngFor="let user of selected">{{user.name}}</span>

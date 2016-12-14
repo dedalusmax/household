@@ -2,11 +2,16 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './components/login.component';
+import { RegisterComponent } from './components/register.component';
+import { DashboardComponent } from './components/dashboard.component';
+import { ProfileComponent } from './components/profile.component';
 import { AuthGuard } from './auth.guard';
 
 const appRoutes: Routes = [
-    { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

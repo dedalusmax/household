@@ -8,15 +8,10 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService extends HttpService {
 
-    profile: Profile; // a reference to the shared user info object retrieved from the Users web API
+    profile: Profile; // a reference to the profile retrieved from the web API
 
     /** The class is constructed with the specific URL to the web API and Angular HTTP service. */
     constructor(http: Http) { super('profile', http); }
-
-    /** This method gets the user info. */
-    getProfile(): Promise<Profile> {
-        return this.getJson<Profile>();
-    }
 
     //#region Auth guard 
 
@@ -26,12 +21,13 @@ export class AuthService extends HttpService {
     }
 
     /** This method get the user data and therefore marks the authentication successful. */
-    logIn(): Observable<boolean> {
-        return this.simpleGetJson()
-            .map((res) => {
-                this.profile = res.json();
-                return (res.json()._Id !== undefined);
-            });
+    logIn(credentials: Profile) {
+        return this.postJson<Profile>(credentials, null, 'login');
+    }
+
+    logout() {
+        // remove user from the cache to log user out
+        this.profile = null;
     }
 
     //#endregion

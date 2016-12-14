@@ -1,0 +1,56 @@
+<form>
+    <section class="form-block">
+        <label>Registration form</label>
+        <div class="form-group">
+            <label for="aForm_1" class="required">Your name</label>
+            <label for="validInput1" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation invalid tooltip-md">
+                      <input type="text" id="validInput1" placeholder="Enter your name" size="30">
+                      <span class="tooltip-content">
+                          This field cannot be empty!
+                      </span>
+                  </label>
+        </div>
+        <div class="form-group">
+            <label for="aForm_1">Email address</label>
+            <input type="text" id="aForm_1" placeholder="Enter your email address" size="45">
+        </div>
+
+        <div class="form-group">
+            <label for="aForm_1">Username</label>
+            <input type="text" id="aForm_1" placeholder="Enter a unique username" size="25">
+        </div>
+        <div class="form-group">
+            <label for="aForm_2">Password</label>
+            <input type="password" id="aForm_2" placeholder="Enter password" size="25">
+        </div>
+        <div class="form-group">
+            <label for="aForm_3">Base currency</label>
+            <div class="select">
+                <select id="aForm_3">
+                            <option>Hrvatska kuna (Kn)</option>
+                            <option>Euro (€)</option>
+                            <option>US Dollar ($)</option>
+                        </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="aForm_4">Language</label>
+            <div class="select">
+                <select id="aForm_4">
+                            <option>English</option>
+                            <option>Hrvatski</option>
+                            <option>Deutsch</option>
+                        </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="aForm_5">Connected accounts</label>
+            <div class="toggle-switch">
+                <input type="checkbox" id="othertoggle">
+                <label for="othertoggle">Sync</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="button" class="btn btn-default">Cancel</button>
+    </section>
+</form>

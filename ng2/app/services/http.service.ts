@@ -53,7 +53,7 @@ export abstract class HttpService {
         let url = this.buildBaseUrl(null, action);
         url = this.buildUrl(url, params);
         let headers = new Headers({ 'Accept': 'application/json; charset=utf-8' });
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = new RequestOptions({ headers: headers });
         return this.http.get(url, options);
     };
 
@@ -62,7 +62,7 @@ export abstract class HttpService {
         let url = this.buildBaseUrl(controller, action);
         url = this.buildUrl(url, params);
         let headers = new Headers({ 'Accept': 'application/json; charset=utf-8' });
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = new RequestOptions({ headers: headers });
         return this.http.get(url, options)
             .toPromise()
             .then(this.extractData)
@@ -74,7 +74,7 @@ export abstract class HttpService {
         let body = JSON.stringify(data);
         let url = this.buildBaseUrl(controller, action);
         let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json; charset=utf-8' });
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = new RequestOptions({ headers: headers });
         return this.http.post(url, body, options).map(this.extractData);
     }
 
@@ -83,7 +83,7 @@ export abstract class HttpService {
         let url = this.buildBaseUrl(controller, action);
         url = this.buildUrl(url, params);
         let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json; charset=utf-8' });
-        let options = new RequestOptions({ headers: headers, withCredentials: true });
+        let options = new RequestOptions({ headers: headers });
         return this.http.delete(url, options).map(this.extractData);
     };
 

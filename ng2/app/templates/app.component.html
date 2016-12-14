@@ -1,12 +1,36 @@
 <div class="main-container">
+
+    <clr-alert *ngIf="!loggedIn" [clrAlertType]="'alert-warning'" [clrAlertAppLevel]="true">
+        <div class="alert-item">
+            <span class="alert-text">
+                Please log in or register. For the application usage you must be logged in.
+            </span>
+            <div class="alert-actions">
+                <button class="btn alert-action">Log In</button>
+                <button class="btn alert-action">Register</button>
+            </div>
+        </div> 
+    </clr-alert>
+    
+    <clr-alert *ngIf="loggedIn && noAccounts" [clrAlertType]="'alert-info'" [clrAlertAppLevel]="true" [clrAlertClosable]="true">
+        <div class="alert-item">
+            <span class="alert-text">
+                You don't have any accounts configured. You won't be able to enter transactions without them.
+            </span>
+            <div class="alert-actions">
+                <button class="btn alert-action">Configure My Accounts</button>
+            </div>
+        </div>
+    </clr-alert>
+
     <header class="header header-1">
         <div class="branding">
-            <a href="#" class="nav-link">
+            <a href="/" class="nav-link">
                 <clr-icon shape="home"></clr-icon>
                 <span class="title">Household</span>
             </a>
         </div>
-        <div class="header-nav">
+        <div *ngIf="loggedIn" class="header-nav">
               <a href="#" class="nav-link"><span class="nav-text">Dashboard</span></a>
               <a href="#" class="nav-link"><span class="nav-text">Transactions</span></a>
               <a href="#" class="nav-link"><span class="nav-text">Reports</span></a>
@@ -14,7 +38,7 @@
           </div>
           <div class="header-actions">
               <span class="nav-link nav-text">
-                  Not logged in
+                  {{ username }}
               </span>
               <clr-dropdown class="dropdown bottom-right">
                   <button class="nav-icon" clrDropdownToggle>
@@ -24,12 +48,12 @@
                   <div class="dropdown-menu">
                       <a href="#" clrDropdownItem>About</a>
                       <a href="#" clrDropdownItem>Preferences</a>
-                      <a href="#" clrDropdownItem>Log out</a>
+                      <a href="/login" clrDropdownItem>Log out</a>
                   </div>
               </clr-dropdown>
           </div>
     </header>
-    <nav class="subnav">
+    <nav *ngIf="loggedIn" class="subnav">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="#">My Profile</a>
@@ -43,7 +67,18 @@
         </ul>
     </nav>
     <div class="content-container">
-        <div class="content-area">ž
+        <div class="content-area">
+            <div *ngIf="!loggedIn">
+                <div class="row">
+                    <div class="offset-md-4 col-md-1">
+                        <clr-icon shape="home" size="120"></clr-icon>
+                    </div>
+                    <div class="col-md-4">
+                        <h1>Household</h1>
+                        An application for managing household accounts.
+                    </div>
+                </div>
+            </div>
             <router-outlet></router-outlet>
         </div>
     </div>

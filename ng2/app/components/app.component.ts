@@ -5,5 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: 'app/templates/app.component.html'
 })
 export class AppComponent { 
+  username: string;
+  loggedIn = false;
+  noAccounts: boolean;
+
 
 }
