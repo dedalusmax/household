@@ -13,10 +13,15 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    if (this.authService.profile) {
-      this.username = this.authService.profile.Username;
-    } else {
-      this.username = 'Not logged in';
-    }
+    this.authService.profile.asObservable().subscribe((data) => {
+        if (data.id) { // this is the indication of valid profile
+          this.username = data.username;
+          this.loggedIn = true;
+        } else {
+          this.username = 'Not logged in';
+          this.loggedIn = false;
+        } 
+      }
+    );
   }
 }
