@@ -22,14 +22,14 @@ export class AppComponent implements OnInit {
     if (cookie && !this.authService.isLoggedIn()) {
       // try to silently login
       this.authService.logIn(cookie).subscribe((data) => {
-        if (data.id) { // this is the indication of valid profile
+        if (data) { // this is the indication of valid profile
           this.authService.profile.next(data); // inject profile data for subscribers
         }
       });
     }
 
     this.authService.profile.asObservable().subscribe((data) => {
-        if (data.id) { // this is the indication of valid profile
+        if (data && data.id) { // this is the indication of valid profile
           this.currentUser = data.username;
           this.loggedIn = true;
           this.noAccounts = true;

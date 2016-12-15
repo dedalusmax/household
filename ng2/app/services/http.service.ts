@@ -13,8 +13,11 @@ export abstract class HttpService {
 
     /** This method works like a callback for extracting the data from the HTTP response. */
     private extractData(res: Response) {
-        let body = res.json();
-        return body || {};
+        if (res.status === 204) {
+            return null;
+        } else {
+            return res.json() || {};
+        }
     }
 
     /** This method works like a callback for handling errors from the web API call. */

@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.logIn(this.model).subscribe((data) => {
-        if (data.id) { // this is the indication of valid profile
+        if (data) { // this is the indication of valid profile
           this.authService.profile.next(data); // inject profile data for subscribers
           this.router.navigate(['/']);
         } else {

@@ -36,4 +36,12 @@ export class AuthService extends HttpService {
     }
 
     //#endregion
+
+    checkProfile(credentials: Profile) {
+        return this.postJson<Profile>(credentials, null, 'login');
+    }
+
+    register(suggestion: Profile) {
+        return this.postJson<Profile>(suggestion, null, 'register');
+    }
 }
