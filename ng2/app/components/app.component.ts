@@ -8,7 +8,7 @@ import { Profile } from '../model/profile';
   templateUrl: 'app/templates/app.component.html'
 })
 export class AppComponent implements OnInit { 
-  username: string;
+  currentUser: string;
   loggedIn = false;
   noAccounts: boolean;
 
@@ -17,21 +17,24 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     // read the credentials from cookie
-    let profile: Profile = this.cookieService.getObject('profile') as Profile;
-    if (profile) {
+    let cookie: Profile = this.cookieService.getObject('profile') as Profile;
+
+    if (cookie && !this.authService.isLoggedIn()) {
       // try to silently login
-      this.authService.logIn(profile).subscribe((data) => {
+      this.authService.logIn(cookie).subscribe((data) => {
         if (data.id) { // this is the indication of valid profile
           this.authService.profile.next(data); // inject profile data for subscribers
-      }});
+        }
+      });
     }
 
     this.authService.profile.asObservable().subscribe((data) => {
         if (data.id) { // this is the indication of valid profile
-          this.username = data.username;
+          this.currentUser = data.username;
           this.loggedIn = true;
+          this.noAccounts = true;
         } else {
-          this.username = 'Not logged in';
+          this.currentUser = 'Not logged in';
           this.loggedIn = false;
         } 
       }

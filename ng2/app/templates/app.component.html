@@ -6,8 +6,8 @@
                 Please log in or register. For the application usage you must be logged in.
             </span>
             <div class="alert-actions">
-                <a href="/login" class="btn alert-action">Log In</a>
-                <a href="/register" class="btn alert-action">Register</a>
+                <a routerLink="/login" class="btn alert-action">Log In</a>
+                <a routerLink="/register" class="btn alert-action">Register</a>
             </div>
         </div> 
     </clr-alert>
@@ -18,7 +18,7 @@
                 You don't have any accounts configured. You won't be able to enter transactions without them.
             </span>
             <div class="alert-actions">
-                <button class="btn alert-action">Configure My Accounts</button>
+                <a routerLink="/accounts" class="btn alert-action">Configure My Accounts</a>
             </div>
         </div>
     </clr-alert>
@@ -31,14 +31,14 @@
             </a>
         </div>
         <div *ngIf="loggedIn" class="header-nav">
-              <a href="#" class="nav-link"><span class="nav-text">Dashboard</span></a>
-              <a href="#" class="nav-link"><span class="nav-text">Transactions</span></a>
-              <a href="#" class="nav-link"><span class="nav-text">Reports</span></a>
-              <a href="#" class="nav-link"><span class="nav-text">Profile Management</span></a>
+              <a routerLink="/" class="nav-link"><span class="nav-text">Dashboard</span></a>
+              <a routerLink="/" class="nav-link"><span class="nav-text">Transactions</span></a>
+              <a routerLink="/" class="nav-link"><span class="nav-text">Reports</span></a>
+              <a routerLink="/" class="nav-link"><span class="nav-text">Profile Management</span></a>
           </div>
           <div class="header-actions">
               <span class="nav-link nav-text">
-                  {{ username }}
+                  {{ currentUser }}
               </span>
               <clr-dropdown class="dropdown bottom-right">
                   <button class="nav-icon" clrDropdownToggle>
@@ -46,9 +46,9 @@
                       <clr-icon shape="caret"></clr-icon>
                   </button>
                   <div class="dropdown-menu">
-                      <a href="/" clrDropdownItem>About</a>
-                      <a *ngIf="!loggedIn" href="/login" clrDropdownItem>Login</a>
-                      <a *ngIf="loggedIn" href="/login" clrDropdownItem>Log out</a>
+                      <a routerLink="/about" clrDropdownItem>About</a>
+                      <a *ngIf="!loggedIn" routerLink="/login" clrDropdownItem>Login</a>
+                      <a *ngIf="loggedIn" routerLink="/login" clrDropdownItem>Log out</a>
                   </div>
               </clr-dropdown>
           </div>
@@ -56,13 +56,13 @@
     <nav *ngIf="loggedIn" class="subnav">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">My Profile</a>
+                <a class="nav-link" routerLink="/profile">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Accounts</a>
+                <a class="nav-link" routerLink="/accounts">Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Synchronization</a>
+                <a class="nav-link" routerLink="/">Synchronization</a>
             </li>
         </ul>
     </nav>
