@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { CookieService } from 'angular2-cookie/core';
+import { Profile } from '../model/profile';
 
 @Component({
   selector: 'my-app',
@@ -10,9 +12,20 @@ export class AppComponent implements OnInit {
   loggedIn = false;
   noAccounts: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cookieService: CookieService) {}
 
   ngOnInit() {
+
+    // read the credentials from cookie
+    let profile: Profile = this.cookieService.getObject('profile') as Profile;
+    if (profile) {
+      // try to silently login
+      this.authService.logIn(profile).subscribe((data) => {
+        if (data.id) { // this is the indication of valid profile
+          this.authService.profile.next(data); // inject profile data for subscribers
+      }});
+    }
+
     this.authService.profile.asObservable().subscribe((data) => {
         if (data.id) { // this is the indication of valid profile
           this.username = data.username;

@@ -7,6 +7,7 @@ import { HttpModule }     from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { ClarityModule }  from 'clarity-angular';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { routing }        from './app.routing';
 import { AuthGuard }      from './auth.guard';
@@ -23,7 +24,7 @@ import { TabsDirective, TabDirective } from './directives/tabs.directive';
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, DashboardComponent, ProfileComponent, TabsDirective, TabDirective ],
-  providers:    [ AuthService, AuthGuard ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
+  providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

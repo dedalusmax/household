@@ -21,7 +21,7 @@
         
         <div class="form-group">
             <div class="checkbox">
-                <input type="checkbox" id="chkRememberMe" #rememberme>
+                <input type="checkbox" id="chkRememberMe" #rememberme [(ngModel)]="rememberMe" name="rememberMe">
                 <label for="chkRememberMe">Remember me</label>
                 <p [hidden]="!rememberme.checked" class="p6">
                     Note: the information will be stored in cookies.
