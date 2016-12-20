@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationStart, Event } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'angular2-cookie/core';
 import { Profile } from '../model/profile';
@@ -11,10 +12,17 @@ export class AppComponent implements OnInit {
   currentUser: string;
   loggedIn = false;
   noAccounts: boolean;
+  location;
 
-  constructor(private authService: AuthService, private cookieService: CookieService) {}
+  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService) {}
 
   ngOnInit() {
+
+    this.router.events
+      .filter(event => event instanceof NavigationStart)
+      .subscribe((event: Event) => {
+        this.location = event.url;
+      });
 
     // read the credentials from cookie
     let cookie: Profile = this.cookieService.getObject('profile') as Profile;

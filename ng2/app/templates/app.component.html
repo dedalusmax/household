@@ -31,10 +31,10 @@
             </a>
         </div>
         <div *ngIf="loggedIn" class="header-nav">
-              <a routerLink="/" class="nav-link"><span class="nav-text">Dashboard</span></a>
-              <a routerLink="/" class="nav-link"><span class="nav-text">Transactions</span></a>
-              <a routerLink="/" class="nav-link"><span class="nav-text">Reports</span></a>
-              <a routerLink="/" class="nav-link"><span class="nav-text">Profile Management</span></a>
+              <a routerLink="/dashboard" class="nav-link" routerLinkActive="active"><span class="nav-text">Dashboard</span></a>
+              <a routerLink="/transactions" class="nav-link" routerLinkActive="active"><span class="nav-text">Transactions</span></a>
+              <a routerLink="/reports" class="nav-link" routerLinkActive="active"><span class="nav-text">Reports</span></a>
+              <a routerLink="/profile" class="nav-link" routerLinkActive="active"><span class="nav-text">Profile Management</span></a>
           </div>
           <div class="header-actions">
               <span class="nav-link nav-text">
@@ -54,15 +54,15 @@
           </div>
     </header>
     <nav *ngIf="loggedIn" class="subnav">
-        <ul class="nav">
+        <ul *ngIf="location == '/profile' || location == '/accounts' || location == '/sync'" class="nav">
             <li class="nav-item">
-                <a class="nav-link" routerLink="/profile">My Profile</a>
+                <a class="nav-link" routerLink="/profile" routerLinkActive="active">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/accounts">Accounts</a>
+                <a class="nav-link" routerLink="/accounts" routerLinkActive="active">Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/">Synchronization</a>
+                <a class="nav-link" routerLink="/sync" routerLinkActive="active">Synchronization</a>
             </li>
         </ul>
     </nav>

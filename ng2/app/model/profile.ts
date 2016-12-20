@@ -4,4 +4,6 @@ export class Profile {
     username: string;
     password: string;
     email: string;
+    createdDate: Date;
+    lastLoginDate: Date;
 }

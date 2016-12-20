@@ -26,9 +26,9 @@ namespace NetCore.Controllers
         }
     
         [HttpPost]
-        public async void Register([FromBody]Profile profile)
+        public async Task<Profile> Register([FromBody]Profile profile)
         {
-            await _repo.Create(profile);
+            return await _repo.Create(profile);
         }
     
         [HttpPut]

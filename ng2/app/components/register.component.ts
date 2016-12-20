@@ -21,6 +21,9 @@ export class RegisterComponent {
         this.error = 'Username with this password already registered!';
         this.showError = true;
       } else {
+
+        this.model.createdDate = new Date(Date.now());
+        
         this.authService.register(this.model).subscribe((nothing) => {
             this.authService.profile.next(this.model); // inject profile data for subscribers
             this.router.navigate(['/']);
