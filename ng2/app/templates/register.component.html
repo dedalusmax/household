@@ -46,23 +46,21 @@
         <div class="form-group">
             <label for="aForm_3">Base currency</label>
             <div class="select">
-                <select id="aForm_3">
-                    <option>Hrvatska kuna (Kn)</option>
-                    <option>Euro (€)</option>
-                    <option>US Dollar ($)</option>
+                <select id="aForm_3" [(ngModel)]="currency" name="currency">
+                    <option *ngFor="let c of currencies" [ngValue]="c">{{c.name}}</option>
                 </select>
             </div>
         </div>
+        
         <div class="form-group">
             <label for="aForm_4">Language</label>
             <div class="select">
-                <select id="aForm_4">
-                    <option>English</option>
-                    <option>Hrvatski</option>
-                    <option>Deutsch</option>
+                <select id="aForm_4" [(ngModel)]="language" name="language">
+                    <option *ngFor="let l of languages" [ngValue]="l">{{l.name}}</option>
                 </select>
             </div>
         </div>
+
         <div class="form-group">
             <label for="aForm_5">Connected accounts</label>
             <div class="toggle-switch">

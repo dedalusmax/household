@@ -4,6 +4,9 @@ export class Profile {
     username: string;
     password: string;
     email: string;
+    displayName: string;
+    baseCurrency: string;
+    language: string;
     createdDate: Date;
     lastLoginDate: Date;
 }

@@ -31,10 +31,16 @@ namespace NetCore.Controllers
             return await _repo.Create(profile);
         }
     
-        [HttpPut]
-        public void Change(string id, [FromBody]Profile profile)
+        [HttpGet] 
+        public async Task<Profile> Get(string id) 
         {
-            _repo.Update(id, profile);
+            return await _repo.Get(id);
+        }
+
+        [HttpPost]
+        public async Task<bool> Change([FromBody]Profile profile)
+        {
+            return await _repo.Update(profile.Id.ToString(), profile);
         }
 
         [HttpDelete]

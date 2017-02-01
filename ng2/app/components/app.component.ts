@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
 
     this.authService.profile.asObservable().subscribe((data) => {
         if (data && data.id) { // this is the indication of valid profile
-          this.currentUser = data.username;
+          this.currentUser = data.displayName;
           this.loggedIn = true;
           this.noAccounts = true;
         } else {

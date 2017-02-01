@@ -40,11 +40,12 @@ namespace NetCore.Data
             return item;
         }
 
-        public async void Update(string id, T item)
+        public async Task<bool> Update(string id, T item)
         {
             item.Id = new ObjectId(id);
             var filter = Builders<T>.Filter.Eq("Id", new ObjectId(id));
-            await Collection.ReplaceOneAsync(filter, item, new UpdateOptions { IsUpsert = true });
+            var result = await Collection.ReplaceOneAsync(filter, item, new UpdateOptions { IsUpsert = true });
+            return result.ModifiedCount > 0;
         }
 
         public async Task<bool> Remove(string id)

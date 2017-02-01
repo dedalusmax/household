@@ -36,7 +36,7 @@ namespace NetCore.Controllers
             } else {
                 w.LastUpdated = DateTime.Now;
                
-                _repo.Update(w.Id.ToString(), w);
+                await _repo.Update(w.Id.ToString(), w);
                 return w;
             }
         }

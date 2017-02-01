@@ -37,6 +37,8 @@ export class AuthService extends HttpService {
 
     //#endregion
 
+    //#region registration
+
     checkProfile(credentials: Profile) {
         return this.postJson<Profile>(credentials, null, 'login');
     }
@@ -44,4 +46,18 @@ export class AuthService extends HttpService {
     register(suggestion: Profile) {
         return this.postJson<Profile>(suggestion, null, 'register');
     }
+
+    //#endregion
+
+    //#region profile management
+
+    getProfile(id: string) {
+        return this.getJson<Profile>(['id=' + id], null, 'get');
+    }
+
+    changeProfile(profile: Profile) {
+        return this.postJson<Profile>(profile, null, 'change');
+    }
+
+    //#endregion
 }

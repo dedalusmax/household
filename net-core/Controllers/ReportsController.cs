@@ -49,7 +49,7 @@ namespace NetCore.Controllers
 
                 report = await GenerateReport(report);
                 
-                _repo.Update(report.Id.ToString(), report);
+                await _repo.Update(report.Id.ToString(), report);
                 return report;
             }
         }

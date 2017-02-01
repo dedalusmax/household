@@ -43,7 +43,10 @@ namespace NetCore
             services.AddSingleton<IRepository<Wallet>, WalletRepository>();
 
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt => {
+                    opt.SerializerSettings.Converters.Add(new ObjectIdConverter());
+                });
 
             // Add functionality to inject IOptions<T>
             services.AddOptions();

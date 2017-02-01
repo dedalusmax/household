@@ -11,7 +11,7 @@ namespace NetCore.Data
         
         Task<T> Create(T item);
 
-        void Update(string id, T item);
+        Task<bool> Update(string id, T item);
 
         Task<bool> Remove(string id);
  
