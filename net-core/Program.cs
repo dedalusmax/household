@@ -41,6 +41,7 @@ namespace NetCore
             services.AddSingleton<ProfileRepository>();
             services.AddSingleton<ReportsRepository>();
             services.AddSingleton<IRepository<Wallet>, WalletRepository>();
+            services.AddSingleton<IRepository<Account>, AccountsRepository>();
 
             services.AddCors();
             services.AddMvc()

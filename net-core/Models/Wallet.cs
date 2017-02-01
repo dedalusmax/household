@@ -8,11 +8,11 @@ namespace NetCore.Models
     {
         public DateTime LastUpdated { get; set; }
 
-        public List<Account> CurrentBalance { get; set; }
+        public List<AccountBalance> CurrentBalance { get; set; }
 
         public Wallet() 
         {
-            CurrentBalance = new List<Account>();
+            CurrentBalance = new List<AccountBalance>();
         }
     }
 }

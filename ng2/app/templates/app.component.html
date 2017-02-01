@@ -54,7 +54,7 @@
           </div>
     </header>
     <nav *ngIf="loggedIn" class="subnav">
-        <ul *ngIf="location == '/profile' || location == '/accounts' || location == '/sync'" class="nav">
+        <ul *ngIf="location == '/profile' || location == '/accounts' || location == '/wallet'" class="nav">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/profile" routerLinkActive="active">My Profile</a>
             </li>
@@ -62,7 +62,7 @@
                 <a class="nav-link" routerLink="/accounts" routerLinkActive="active">Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/sync" routerLinkActive="active">Synchronization</a>
+                <a class="nav-link" routerLink="/wallet" routerLinkActive="active">Wallet</a>
             </li>
         </ul>
     </nav>

@@ -17,15 +17,18 @@ import { AppComponent }   from './components/app.component';
 import { AboutComponent }   from './components/about.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
-import { DashboardComponent } from './components/dashboard.component';
 import { ProfileComponent } from './components/profile.component';
+import { AccountsComponent } from './components/accounts.component';
+import { WalletComponent } from './components/wallet.component';
+import { DashboardComponent } from './components/dashboard.component';
 
 import { TabsDirective, TabDirective } from './directives/tabs.directive';
 import { EqualValidator } from './directives/equal.validator';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
-  declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, DashboardComponent, ProfileComponent, 
+  declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
+                  ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
                   TabsDirective, TabDirective, EqualValidator ],
   providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]

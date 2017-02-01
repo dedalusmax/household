@@ -1,9 +1,17 @@
+using NetCore.Data;
+
 namespace NetCore.Models
 {
-    public class Account 
+    public class Account : DataEntity
     {
-        public string Name { get; set; } = "GOT";
+        public string Name { get; set; }
 
-        public double Amount { get; set; } = 0.0;
+        public string Code { get; set; }
+
+        public string Type { get; set; }
+
+        public string Currency { get; set; }
+
+        public string Description { get; set; }
     }
 }
