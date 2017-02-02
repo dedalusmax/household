@@ -55,9 +55,10 @@ namespace NetCore.Data
             return result.DeletedCount > 0;
         }
 
-        public void RemoveAll()
+        public async Task<bool> RemoveAll()
         {
-            Collection.DeleteManyAsync(new BsonDocument());
+            var result = await Collection.DeleteManyAsync(new BsonDocument());
+            return result.DeletedCount > 0;
         }
     }
 }

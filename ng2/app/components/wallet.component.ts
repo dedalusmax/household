@@ -26,13 +26,14 @@ export class WalletComponent implements OnInit {
 
     stored = false;
     error = null;
+    emptied = false;
 
     constructor(private router: Router, private walletService: WalletService, private accountsService: AccountsService) {}
 
     ngOnInit() {
 
         let today = new Date(Date.now());
-        today.setHours(0, 0, 0, 0);
+        today.setUTCHours(0, 0, 0, 0);
         this.lastUpdated = today.toISOString().slice(0,10);
 
         // get all accounts (for the grid and chooser)
@@ -103,7 +104,7 @@ export class WalletComponent implements OnInit {
         this.walletItems.forEach((item) => {
             wallet.currentBalance.push({
                 account: item.code,
-                balance: item.newBalance.toFixed(2)
+                balance: +Number(item.newBalance).toFixed(2)
             });
         });
         this.walletService.storeWallet(wallet).subscribe(() => {
@@ -115,5 +116,18 @@ export class WalletComponent implements OnInit {
         error => {
             this.error = 'Wallet cannot be stored: ' + error.message;
         });
+    }
+
+    emptyWallet() {
+        this.emptied = false;
+        this.walletService.emptyWallet().subscribe(() => {
+            // clear the data and refresh the list
+            this.emptied = true;
+            setTimeout(() => this.emptied = false, 2000);
+            this.loadWallet();
+        },
+        error => {
+            this.error = 'Wallet cannot be emptied: ' + error.message;
+        });        
     }
 }

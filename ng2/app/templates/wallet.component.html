@@ -18,14 +18,14 @@
                 <clr-dg-column>Existing balance</clr-dg-column>
                 <clr-dg-column>New balance</clr-dg-column>
 
-                <clr-dg-row *ngFor="let item of walletItems">
+                <clr-dg-row *ngFor="let item of walletItems; let i = index">
                     <clr-dg-cell>{{item.account}}</clr-dg-cell>
                     <clr-dg-cell>{{item.code}}</clr-dg-cell>
                     <clr-dg-cell>{{item.currency}}</clr-dg-cell>
                     <clr-dg-cell class="number">{{item.balance}}</clr-dg-cell>
                     <clr-dg-cell>
                         <label for="code" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="newBalance.invalid && newBalance.dirty">
-                            <input class="form-control" type="number" placeholder="Enter amount" size="15" [(ngModel)]="item.newBalance" name="newBalance" #newBalance="ngModel" required>
+                            <input class="form-control" type="number" placeholder="Enter amount" size="15" [(ngModel)]="item.newBalance" name="newBalance-{{i}}" #newBalance="ngModel" required>
                             <span class="tooltip-content">Balance ammount cannot be empty!</span>
                         </label>                          
                     </clr-dg-cell>
@@ -43,13 +43,31 @@
             </div>
             <button type="button" class="btn btn-default btn-sm" [disabled]="!accountToAdd" (click)="addAccount()">Add account</button>
         </div>            
-        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Store</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid || walletItems.length == 0">Store</button>
+        <button type="button" class="btn btn-danger" [disabled]="walletItems.length == 0" (click)="opened = true">Empty your wallet</button>
     </section>
 </form>
 <clr-alert *ngIf="stored" [clrAlertType]="'alert-info'">
     <div class="alert-item">
         <span class="alert-text">
             New account balance has been stored in the wallet successfully. 
+        </span>
+    </div>
+</clr-alert>
+<clr-modal [(clrModalOpen)]="opened">
+    <h3 class="modal-title">Confirm your action</h3>
+    <div class="modal-body">
+        <p>Are you sure you want to remove all accounts from your wallet?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="opened = false">No</button>
+        <button type="button" class="btn btn-warning" (click)="opened = false;emptyWallet()">Yes</button>
+    </div>
+</clr-modal>
+<clr-alert *ngIf="emptied" [clrAlertType]="'alert-warning'">
+    <div class="alert-item">
+        <span class="alert-text">
+            All accounts have been emptied from your wallet. 
         </span>
     </div>
 </clr-alert>

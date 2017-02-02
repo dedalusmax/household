@@ -15,6 +15,6 @@ namespace NetCore.Data
 
         Task<bool> Remove(string id);
  
-        void RemoveAll();
+        Task<bool> RemoveAll();
     } 
 }
