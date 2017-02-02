@@ -1,11 +1,11 @@
 
-<form (ngSubmit)="f.form.valid && change()" #f="ngForm" novalidate>
+<form (ngSubmit)="f.form.valid && store()" #f="ngForm" novalidate>
     <section class="form-block">
         <label>Current balance in my pocket</label>
         <div class="form-group">
             <label for="lastUpdated" class="required">On date</label>
-            <label for="lastUpdated" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="lastUpdated.invalid && lastUpdated.dirty">
-            <input type="date" class="form-control" placeholder="Enter date changed" size="30" [(ngModel)]="model.lastUpdated" name="lastUpdated" #lastUpdated="ngModel" required>
+            <label for="lastUpdated" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="lastUp.invalid && lastUp.dirty">
+            <input type="date" class="form-control" placeholder="Enter date changed" size="30" [(ngModel)]="lastUpdated" name="lastUpdated" #lastUp="ngModel" required>
             <span class="tooltip-content">Changed date cannot be empty!</span>
         </label>
         </div>        
@@ -13,20 +13,43 @@
             <label for="aForm_4">Current balance</label>
             <clr-datagrid id="aForm_4">
                 <clr-dg-column>Account</clr-dg-column>
-                <clr-dg-column>Name</clr-dg-column>
+                <clr-dg-column>Code</clr-dg-column>
                 <clr-dg-column>Currency</clr-dg-column>
-                <clr-dg-column>Balance</clr-dg-column>
+                <clr-dg-column>Existing balance</clr-dg-column>
+                <clr-dg-column>New balance</clr-dg-column>
 
-                <clr-dg-row *ngFor="let account of model.currentBalance">
-                    <clr-dg-cell>{{account.account}}</clr-dg-cell>
-                    <clr-dg-cell>{{account.account}}</clr-dg-cell>
-                    <clr-dg-cell>{{account.account}}</clr-dg-cell>
-                    <clr-dg-cell>{{account.balance}}</clr-dg-cell>
+                <clr-dg-row *ngFor="let item of walletItems">
+                    <clr-dg-cell>{{item.account}}</clr-dg-cell>
+                    <clr-dg-cell>{{item.code}}</clr-dg-cell>
+                    <clr-dg-cell>{{item.currency}}</clr-dg-cell>
+                    <clr-dg-cell class="number">{{item.balance}}</clr-dg-cell>
+                    <clr-dg-cell>
+                        <label for="code" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="newBalance.invalid && newBalance.dirty">
+                            <input class="form-control" type="number" placeholder="Enter amount" size="15" [(ngModel)]="item.newBalance" name="newBalance" #newBalance="ngModel" required>
+                            <span class="tooltip-content">Balance ammount cannot be empty!</span>
+                        </label>                          
+                    </clr-dg-cell>
                 </clr-dg-row>
 
-                <clr-dg-footer>{{model.currentBalance.length}} active account(s)</clr-dg-footer>
+                <clr-dg-footer>{{walletItems.length}} active account(s) currently in the wallet</clr-dg-footer>
             </clr-datagrid>
         </div>
-        <button type="submit" class="btn btn-primary">Store</button>
+        <div class="form-group">
+            <label for="lastUpdated">Add account to wallet</label>
+            <div class="select">
+                <select id="aForm_3" [(ngModel)]="accountToAdd" name="accountToAdd">
+                    <option *ngFor="let a of notAddedAccounts" [ngValue]="a">{{a.name}}</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-default btn-sm" [disabled]="!accountToAdd" (click)="addAccount()">Add account</button>
+        </div>            
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Store</button>
     </section>
 </form>
+<clr-alert *ngIf="stored" [clrAlertType]="'alert-info'">
+    <div class="alert-item">
+        <span class="alert-text">
+            New account balance has been stored in the wallet successfully. 
+        </span>
+    </div>
+</clr-alert>

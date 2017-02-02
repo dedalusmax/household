@@ -11,6 +11,11 @@ class AccountType {
 @Component({
   selector: 'register',
   templateUrl: 'app/templates/accounts.component.html',
+  styles: [`
+    .number {
+      text-align: right;
+    }
+  `],
   providers: [AccountsService]
 })
 export class AccountsComponent implements OnInit { 
@@ -61,7 +66,7 @@ export class AccountsComponent implements OnInit {
                     type: account.type,
                     description: account.description,
                     currency: account.currency,
-                    balance: 0.00,
+                    balance: Number(0).toFixed(2),
                     selected: false
                 };
                 this.accounts.push(item);
@@ -94,10 +99,14 @@ export class AccountsComponent implements OnInit {
         this.added = false;
         this.model.currency = this.currency.code;
         this.model.type = this.accountType.type;
-
+        
         this.accountsService.addAccount(this.model).subscribe(() => {
             this.added = true;
-            setTimeout(() => this.added = false, 2000);
+
+            // TODO: add first transaction with initial balance
+            // this.initialBalance.toFixed(2)
+
+            setTimeout(() => this.added = false, 3000);
             // clear the data and refresh the list
             this.model = new Account(); 
             this.initialBalance = 0.00;

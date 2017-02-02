@@ -6,4 +6,8 @@ export class AccountBalance {
 export class Wallet {
     lastUpdated: Date;
     currentBalance: AccountBalance[];
+
+    constructor() {
+        this.currentBalance = [];
+    }
 }

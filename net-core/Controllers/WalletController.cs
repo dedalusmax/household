@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCore.Data;
@@ -23,19 +25,15 @@ namespace NetCore.Controllers
         }
        
         [HttpPost]
-        public async Task<Wallet> Post([FromBody]Wallet w)
+        public async Task<Wallet> Store([FromBody]Wallet w)
         {
-            var wallet = await _repo.GetAll();
-            if (wallet == null) {
-
-                w = new Wallet();
+            if (w.LastUpdated == DateTime.MinValue) {
                 w.LastUpdated = DateTime.Now;
-                
+            }
+            var wallet = await _repo.GetAll() as List<Wallet>;
+            if (wallet.Count() == 0) {
                 return await _repo.Create(w) ?? null;
-
-            } else {
-                w.LastUpdated = DateTime.Now;
-               
+            } else {             
                 await _repo.Update(w.Id.ToString(), w);
                 return w;
             }

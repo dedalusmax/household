@@ -14,7 +14,7 @@
         <clr-dg-cell>{{account.type}}</clr-dg-cell>
         <clr-dg-cell>{{account.description}}</clr-dg-cell>
         <clr-dg-cell>{{account.currency}}</clr-dg-cell>
-        <clr-dg-cell>{{account.balance}}</clr-dg-cell>
+        <clr-dg-cell class="number">{{account.balance}}</clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
@@ -105,7 +105,7 @@
 <clr-alert *ngIf="added" [clrAlertType]="'alert-info'">
     <div class="alert-item">
         <span class="alert-text">
-            The account has been added successfully.
+            The account has been added successfully. A new transaction will be created with the starting balance indicated.
         </span>
     </div>
 </clr-alert>

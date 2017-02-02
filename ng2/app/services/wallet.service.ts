@@ -11,4 +11,8 @@ export class WalletService extends HttpService {
     getWallet() {
         return this.getJson<Wallet[]>(null, null, 'get');
     }
+
+    storeWallet(wallet: Wallet) {
+        return this.postJson<Wallet>(wallet, null, 'store');
+    }
 }

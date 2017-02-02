@@ -3,10 +3,12 @@ import { Router, ActivatedRoute, NavigationStart, Event } from '@angular/router'
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'angular2-cookie/core';
 import { Profile } from '../model/profile';
+import { AccountsService } from '../services/accounts.service';
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/templates/app.component.html'
+  templateUrl: 'app/templates/app.component.html',
+  providers: [AccountsService]
 })
 export class AppComponent implements OnInit { 
   currentUser: string;
@@ -14,7 +16,8 @@ export class AppComponent implements OnInit {
   noAccounts: boolean;
   location;
 
-  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService) {}
+  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService,
+    private accountsService: AccountsService) {}
 
   ngOnInit() {
 
@@ -40,7 +43,12 @@ export class AppComponent implements OnInit {
         if (data && data.id) { // this is the indication of valid profile
           this.currentUser = data.displayName;
           this.loggedIn = true;
-          this.noAccounts = true;
+
+          // search for the accounts
+          this.accountsService.getAccounts().then((data) => {
+            this.noAccounts = data.length == 0;
+          });
+
         } else {
           this.currentUser = 'Not logged in';
           this.loggedIn = false;
