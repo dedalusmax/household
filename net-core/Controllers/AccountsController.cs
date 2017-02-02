@@ -28,6 +28,12 @@ namespace NetCore.Controllers
         }
 
         [HttpDelete]
+        public async Task<bool> Delete(string id)
+        {
+            return await _repo.Remove(id);
+        }
+
+        [HttpDelete]
         public void DeleteAll()
         {
             _repo.RemoveAll();

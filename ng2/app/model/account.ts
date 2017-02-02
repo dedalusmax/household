@@ -1,4 +1,5 @@
 export class Account {
+    id: string;
     name: string;
     code: string;
     type: string;

@@ -1,22 +1,36 @@
 <label>List of accounts</label>
 
-<clr-datagrid [(clrDgSelected)]="selected">
+<clr-datagrid [(clrDgSelected)]="selectedAccounts">
     <clr-dg-column>Account name</clr-dg-column>
     <clr-dg-column>Code</clr-dg-column>
     <clr-dg-column>Type</clr-dg-column>
+    <clr-dg-column>Description</clr-dg-column>
     <clr-dg-column>Currency</clr-dg-column>
     <clr-dg-column>Current Balance</clr-dg-column>
 
-    <clr-dg-row *ngFor="let account of accounts">
+    <clr-dg-row *clrDgItems="let account of accounts" [clrDgItem]="account">
         <clr-dg-cell>{{account.name}}</clr-dg-cell>
         <clr-dg-cell>{{account.code}}</clr-dg-cell>
         <clr-dg-cell>{{account.type}}</clr-dg-cell>
+        <clr-dg-cell>{{account.description}}</clr-dg-cell>
         <clr-dg-cell>{{account.currency}}</clr-dg-cell>
         <clr-dg-cell>{{account.balance}}</clr-dg-cell>
     </clr-dg-row>
 
-    <clr-dg-footer>{{accounts.length}} account(s)</clr-dg-footer>
+    <clr-dg-footer>
+        <button type="submit" class="btn btn-danger btn-sm" [disabled]="selectedAccounts.length == 0" 
+            (click)="deleteAccounts()">Delete accounts</button>
+        {{accounts.length}} account(s)
+    </clr-dg-footer>
 </clr-datagrid>
+
+<clr-alert *ngIf="deleted" [clrAlertType]="'alert-info'">
+    <div class="alert-item">
+        <span class="alert-text">
+            Selected account(s) have been deleted successfully.
+        </span>
+    </div>
+</clr-alert>
 
 <form (ngSubmit)="f.form.valid && add()" #f="ngForm" novalidate class="compact">
     <section class="form-block">
@@ -82,7 +96,7 @@
                 <label for="aForm_4">Description</label>
             </div>
             <div class="col-lg-10">
-                <textarea id="aForm_4" rows="2"></textarea>
+                <textarea class="form-control" id="aForm_4" placeholder="Put some information about this account here" [(ngModel)]="model.description" name="code" rows="2"></textarea>
             </div>
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Add</button>

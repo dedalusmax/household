@@ -15,4 +15,8 @@ export class AccountsService extends HttpService {
     addAccount(account: Account) {
         return this.postJson<Account>(account, null, 'add');
     }
+
+    deleteAccount(id: string) {
+        return this.deleteJson(['id=' + id], null, 'delete');
+    }
 }
