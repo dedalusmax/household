@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile.component';
 import { AccountsComponent } from './components/accounts.component';
 import { WalletComponent } from './components/wallet.component';
 import { DashboardComponent } from './components/dashboard.component';
+import { TransactionsComponent } from './components/transactions.component';
 
 import { TabsDirective, TabDirective } from './directives/tabs.directive';
 import { EqualValidator } from './directives/equal.validator';
@@ -29,6 +30,7 @@ import { EqualValidator } from './directives/equal.validator';
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
                   ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
+                  TransactionsComponent,
                   TabsDirective, TabDirective, EqualValidator ],
   providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]
