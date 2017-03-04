@@ -18,6 +18,8 @@ import { Transaction } from '../model/transaction';
 })
 export class TransactionsComponent implements OnInit { 
 
+    term: string;
+
     transactions = [];
 
     constructor(private transactionsService: TransactionsService) {}

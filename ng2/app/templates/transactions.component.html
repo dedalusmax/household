@@ -3,6 +3,7 @@
 <div class="table-buttons">
     <button type="submit" class="btn btn-link">Add new</button>
     <button type="submit" class="btn btn-link" disabled>Search</button>
+    <search-box (update)="term = $event"></search-box>
     <button type="submit" class="btn btn-sm btn-link">Export</button>
     <button type="submit" class="btn btn-sm btn-link" disabled>Import</button>
 </div>
@@ -16,7 +17,7 @@
     <clr-dg-column>Account</clr-dg-column>
     <clr-dg-column>Transferred to</clr-dg-column>
 
-    <clr-dg-row *clrDgItems="let transaction of transactions" [clrDgItem]="transaction">
+    <clr-dg-row *clrDgItems="let transaction of transactions | search: term" [clrDgItem]="transaction">
         <clr-dg-cell>{{transaction.date}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.costCenter}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.category}}</clr-dg-cell>

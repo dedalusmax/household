@@ -25,13 +25,17 @@ import { TransactionsComponent } from './components/transactions.component';
 
 import { TabsDirective, TabDirective } from './directives/tabs.directive';
 import { EqualValidator } from './directives/equal.validator';
+import { SearchPipe } from './pipes/search.pipe';
+import { SearchBox } from './components/search-box';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
                   ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
                   TransactionsComponent,
-                  TabsDirective, TabDirective, EqualValidator ],
+                  TabsDirective, TabDirective, EqualValidator,
+                  SearchPipe, SearchBox
+                   ],
   providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]
 })
