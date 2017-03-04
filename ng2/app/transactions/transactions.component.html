@@ -1,33 +1,40 @@
 <label>Transactions</label>
 
 <div class="table-buttons">
-    <button type="submit" class="btn btn-link">Add new</button>
-    <button type="submit" class="btn btn-link" disabled>Search</button>
+    <button type="submit" class="btn btn-link" (click)="add();">Add new</button>
+    <button type="submit" class="btn btn-link" (click)="searchBox.visible = true" disabled>Search</button>
     <search-box (update)="term = $event"></search-box>
     <button type="submit" class="btn btn-sm btn-link">Export</button>
     <button type="submit" class="btn btn-sm btn-link" disabled>Import</button>
 </div>
 
 <clr-datagrid>
-    <clr-dg-column>Account name</clr-dg-column>
+    <clr-dg-column>Date</clr-dg-column>
     <clr-dg-column>Cost Center</clr-dg-column>
     <clr-dg-column>Category</clr-dg-column>
     <clr-dg-column>Description</clr-dg-column>
     <clr-dg-column>Amount</clr-dg-column>
     <clr-dg-column>Account</clr-dg-column>
     <clr-dg-column>Transferred to</clr-dg-column>
+    <clr-dg-column class="item-actions">Actions</clr-dg-column>
 
     <clr-dg-row *clrDgItems="let transaction of transactions | search: term" [clrDgItem]="transaction">
-        <clr-dg-cell>{{transaction.date}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.date | date:'dd.MM.yyyy'}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.costCenter}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.category}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.description}}</clr-dg-cell>
         <clr-dg-cell class="number">{{transaction.amount}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.account}}</clr-dg-cell>
         <clr-dg-cell>{{transaction.transfer}}</clr-dg-cell>
+        <clr-dg-cell>
+            <button type="submit" class="btn btn-outline btn-sm" (click)="edit(transaction)">Edit</button>
+            <button type="submit" class="btn btn-warning-outline btn-sm" (click)="delete(transaction)">Delete</button>
+        </clr-dg-cell>
     </clr-dg-row>
 
     <clr-dg-footer>
         {{transactions.length}} transaction(s)
     </clr-dg-footer>
 </clr-datagrid>
+
+<transaction></transaction>

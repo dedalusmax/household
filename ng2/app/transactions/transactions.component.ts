@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { TransactionsService } from '../shared/services/transactions.service';
 import { Transaction } from '../shared/model/transaction';
+import { TransactionComponent } from './transaction.component';
 
 @Component({
   selector: 'transactions',
@@ -8,7 +9,9 @@ import { Transaction } from '../shared/model/transaction';
   styleUrls: ['./app/transactions/transactions.component.css'],
   providers: [TransactionsService]
 })
-export class TransactionsComponent implements OnInit { 
+export class TransactionsComponent implements OnInit, AfterViewInit { 
+
+    @ViewChild(TransactionComponent) dialog: TransactionComponent;
 
     term: string;
 
@@ -18,6 +21,26 @@ export class TransactionsComponent implements OnInit {
 
     ngOnInit() {
         this.loadTransactions();
+    }
+
+    ngAfterViewInit() { 
+        
+    }
+
+    add() {
+        this.dialog.opened = true;
+        this.dialog.title = "Add new transaction";
+        this.dialog.model = new Transaction();
+    }
+
+    edit(selectedItem: Transaction) {
+        this.dialog.opened = true;
+        this.dialog.title = "Edit transaction";
+        this.dialog.model = selectedItem;
+    }
+
+    delete(selectedItem: Transaction) {
+
     }
 
     loadTransactions() {

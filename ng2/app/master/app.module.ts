@@ -22,6 +22,7 @@ import { AccountsComponent } from '../accounts/accounts.component';
 import { WalletComponent } from '../wallet/wallet.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { TransactionsComponent } from '../transactions/transactions.component';
+import { TransactionComponent } from '../transactions/transaction.component';
 
 import { TabsComponent } from '../shared/components/tabs.component';
 import { TabComponent } from '../shared/components/tab.component';
@@ -33,7 +34,7 @@ import { SearchBoxComponent } from '../shared/components/search-box.component';
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
                   ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
-                  TransactionsComponent,
+                  TransactionsComponent, TransactionComponent,
                   TabsComponent, TabComponent, EqualValidator,
                   SearchPipe, SearchBoxComponent
                    ],

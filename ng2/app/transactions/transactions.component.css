@@ -5,3 +5,7 @@
 .table-buttons {
     float: right;
 }
+
+.item-actions {
+    width: 120px;
+}
