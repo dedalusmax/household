@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WalletService } from '../services/wallet.service';
-import { Wallet, AccountBalance } from '../model/wallet';
-import { AccountsService } from '../services/accounts.service';
-import { Account } from '../model/account';
+import { WalletService } from '../shared/services/wallet.service';
+import { Wallet, AccountBalance } from '../shared/model/wallet';
+import { AccountsService } from '../shared/services/accounts.service';
+import { Account } from '../shared/model/account';
 
 @Component({
   selector: 'register',
-  templateUrl: 'app/templates/wallet.component.html',
-  styles: [`
-    .number {
-      text-align: right;
-    }
-  `],
+  templateUrl: './app/wallet/wallet.component.html',
+  styleUrls: ['./app/wallet/wallet.component.css'],
   providers: [WalletService, AccountsService]
 })
 export class WalletComponent implements OnInit { 

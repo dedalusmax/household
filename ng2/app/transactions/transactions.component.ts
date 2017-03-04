@@ -1,19 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionsService } from '../services/transactions.service';
-import { Transaction } from '../model/transaction';
+import { TransactionsService } from '../shared/services/transactions.service';
+import { Transaction } from '../shared/model/transaction';
 
 @Component({
   selector: 'transactions',
-  templateUrl: 'app/templates/transactions.component.html',
-  styles: [`
-    .number {
-      text-align: right;
-    },
-    .table-buttons {
-        float: right;
-        align: right;
-    }
-  `],
+  templateUrl: './app/transactions/transactions.component.html',
+  styleUrls: ['./app/transactions/transactions.component.css'],
   providers: [TransactionsService]
 })
 export class TransactionsComponent implements OnInit { 

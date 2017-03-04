@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationStart, Event } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { CookieService } from 'angular2-cookie/core';
-import { Profile } from '../model/profile';
-import { AccountsService } from '../services/accounts.service';
+import { Profile } from '../shared/model/profile';
+import { AccountsService } from '../shared/services/accounts.service';
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/templates/app.component.html',
+  templateUrl: './app/master/app.component.html',
   providers: [AccountsService]
 })
 export class AppComponent implements OnInit { 

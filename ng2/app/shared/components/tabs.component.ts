@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { TabComponent } from './tab.component';
 
 /** This component (structural directive) implements the functionality of tabs (consisting of one or more tab elements). */
 @Component({
@@ -12,12 +13,12 @@ import { Component, Input } from '@angular/core';
     <ng-content class="tab-content"></ng-content>
     `
 })
-export class TabsDirective {
+export class TabsComponent {
 
-    tabs: TabDirective[] = [];
+    tabs: TabComponent[] = [];
 
     /** This method select a tab and deselects all other tabs in container. */
-    selectTab(tab: TabDirective) {
+    selectTab(tab: TabComponent) {
         this.tabs.forEach((item) => {
             item.active = false;
         });
@@ -25,30 +26,10 @@ export class TabsDirective {
     }
 
     /** This method adds a tab to the container and marks it as active. */
-    addTab(tab: TabDirective) {
+    addTab(tab: TabComponent) {
         if (this.tabs.length === 0) {
             tab.active = true;
         }
         this.tabs.push(tab);
-    }
-}
-
-/** This component (structural directive) implements the functionality of a tab element (part of the tabs directive). */
-@Component({
-    selector: 'tab',
-    template: `
-    <div [hidden]="!active">
-      <ng-content></ng-content>
-    </div>
-  `
-})
-export class TabDirective {
-
-    @Input() tabTitle;
-    active: boolean;
-
-    /** This method constructs a tab and with that adds it to the parent container. */
-    constructor(tabs: TabsDirective) {
-        tabs.addTab(this);
     }
 }

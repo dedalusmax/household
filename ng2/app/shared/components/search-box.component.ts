@@ -8,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
     </div>
     `
 })
-export class SearchBox {
+export class SearchBoxComponent {
     @Output() update = new EventEmitter();
 
     ngOnInit() {

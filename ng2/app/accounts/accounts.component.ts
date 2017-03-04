@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountsService } from '../services/accounts.service';
-import { Account } from '../model/account';
-import { Currency } from '../model/currency';
+import { AccountsService } from '../shared/services/accounts.service';
+import { Account } from '../shared/model/account';
+import { Currency } from '../shared/model/currency';
 
 class AccountType {
     constructor(public type: string, public name: string) {}
@@ -10,12 +10,8 @@ class AccountType {
 
 @Component({
   selector: 'register',
-  templateUrl: 'app/templates/accounts.component.html',
-  styles: [`
-    .number {
-      text-align: right;
-    }
-  `],
+  templateUrl: './app/accounts/accounts.component.html',
+  styleUrls: ['./app/accounts/accounts.component.css'],
   providers: [AccountsService]
 })
 export class AccountsComponent implements OnInit { 

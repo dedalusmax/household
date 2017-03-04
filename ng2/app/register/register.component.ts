@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { Profile } from '../model/profile';
-import { Currency } from '../model/currency';
-import { Language } from '../model/language';
+import { AuthService } from '../shared/services/auth.service';
+import { Profile } from '../shared/model/profile';
+import { Currency } from '../shared/model/currency';
+import { Language } from '../shared/model/language';
 
 @Component({
   selector: 'register',
-  templateUrl: 'app/templates/register.component.html'
+  templateUrl: './app/register/register.component.html'
 })
 export class RegisterComponent implements OnInit { 
   model = new Profile();

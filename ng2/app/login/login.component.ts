@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../services/auth.service';
-import { Profile } from '../model/profile';
+import { AuthService } from '../shared/services/auth.service';
+import { Profile } from '../shared/model/profile';
 import { CookieService } from 'angular2-cookie/core';
 
 @Component({
   selector: 'login',
-  templateUrl: 'app/templates/login.component.html'
+  templateUrl: './app/login/login.component.html'
 })
 export class LoginComponent implements OnInit { 
   model = new Profile();

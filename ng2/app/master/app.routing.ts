@@ -1,15 +1,16 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AboutComponent }   from './components/about.component';
-import { LoginComponent } from './components/login.component';
-import { RegisterComponent } from './components/register.component';
-import { DashboardComponent } from './components/dashboard.component';
-import { TransactionsComponent } from './components/transactions.component';
-import { ProfileComponent } from './components/profile.component';
-import { AccountsComponent } from './components/accounts.component';
-import { WalletComponent } from './components/wallet.component';
-import { AuthGuard } from './auth.guard';
+import { AboutComponent } from '../about/about.component';
+import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
+import { ProfileComponent } from '../profile/profile.component';
+import { AccountsComponent } from '../accounts/accounts.component';
+import { WalletComponent } from '../wallet/wallet.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { TransactionsComponent } from '../transactions/transactions.component';
+
+import { AuthGuard } from '../shared/services/auth.guard';
 
 const appRoutes: Routes = [
     { path: '', component: AboutComponent },

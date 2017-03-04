@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Profile } from '../model/profile';
-import { Currency } from '../model/currency';
-import { Language } from '../model/language';
+import { AuthService } from '../shared/services/auth.service';
+import { Profile } from '../shared/model/profile';
+import { Currency } from '../shared/model/currency';
+import { Language } from '../shared/model/language';
 
 @Component({
   selector: 'profile',
-  templateUrl: 'app/templates/profile.component.html'
+  templateUrl: './app/profile/profile.component.html'
 })
 export class ProfileComponent implements OnInit { 
   model = new Profile();
