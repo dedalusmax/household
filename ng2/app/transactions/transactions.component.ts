@@ -1,7 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef,
+    ContentChildren } from '@angular/core';
 import { TransactionsService } from '../shared/services/transactions.service';
 import { Transaction } from '../shared/model/transaction';
 import { TransactionComponent } from './transaction.component';
+
+import { Datagrid, DatagridFilter, DatagridColumn, DatagridRow, DATAGRID_DIRECTIVES }  from 'clarity-angular';
 
 @Component({
   selector: 'transactions',
@@ -12,12 +15,17 @@ import { TransactionComponent } from './transaction.component';
 export class TransactionsComponent implements OnInit, AfterViewInit { 
 
     @ViewChild(TransactionComponent) dialog: TransactionComponent;
+    @ViewChild(Datagrid) datagrid: Datagrid;
+    @ViewChildren(DatagridColumn) columns: QueryList<DatagridColumn>;
+    @ViewChild('grid') grid: any;
+    @ContentChildren(DatagridColumn) elements: any;
 
     term: string;
 
     transactions = [];
 
-    constructor(private transactionsService: TransactionsService) {}
+    constructor(private transactionsService: TransactionsService,
+    private element: ElementRef) {}
 
     ngOnInit() {
         this.loadTransactions();
@@ -25,6 +33,40 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() { 
         
+    }
+
+    export() {
+        this.datagrid.items;
+
+        this.columns.forEach((c) => {
+            //console.log(c);
+        });
+
+        let x = this.element.nativeElement.querySelector('clr-dg-column');
+
+        let columns = this.element.nativeElement.getElementsByTagName('clr-dg-column');
+        for (let c = 0; c < columns.length; c++) {
+            if (columns[c].classList.contains('no-export')) {
+                console.log('IGNORED!');
+            } else {
+                console.log(columns[c].innerText);
+            }
+        };
+
+        let rows = this.element.nativeElement.getElementsByTagName('clr-dg-row');
+        for (let r = 0; r < rows.length; r++) {
+            let row = rows[r];
+            console.log(row);
+            for (let c = 0; c < row.children.length; c++) {
+                if (row.children[c].classList.contains('no-export')) {
+                    console.log('IGNORED!');
+                } else {
+                    console.log(row.children[c].innerText);
+                }
+            }
+        };
+
+        let els = this.elements;
     }
 
     add() {
