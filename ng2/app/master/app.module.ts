@@ -30,13 +30,15 @@ import { EqualValidator } from '../shared/directives/equal.validator';
 import { SearchPipe } from '../shared/pipes/search.pipe';
 import { SearchBoxComponent } from '../shared/components/search-box.component';
 
+import { ImportComponent } from '../import/import.component';
+
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
                   ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
                   TransactionsComponent, TransactionComponent,
                   TabsComponent, TabComponent, EqualValidator,
-                  SearchPipe, SearchBoxComponent
+                  SearchPipe, SearchBoxComponent, ImportComponent
                    ],
   providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]

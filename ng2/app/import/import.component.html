@@ -1,0 +1,33 @@
+<clr-wizard #wizard [(clrWizardOpen)]="opened" [clrWizardSize]="'lg'">
+    <div class="wizard-title">Wizard Title</div>
+
+    <clr-wizard-step>Step 1</clr-wizard-step>
+    <clr-wizard-step>Step 2</clr-wizard-step>
+    <clr-wizard-step>Step 3</clr-wizard-step>
+
+    <clr-wizard-page (clrWizardPageOnCommit)="onPreviewFile()">
+        <input type="file" (change)="onFileSelected($event)" />
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+        <clr-datagrid>
+            <clr-dg-column *ngFor="let column of columns">Column {{column}}</clr-dg-column>
+
+            <clr-dg-row *clrDgItems="let row of rows; let i = index" [clrDgItem]="row" [class.highlighted]="firstRowIsHeader && i == 0">
+                <clr-dg-cell *ngFor="let cell of row">{{cell}}</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>
+                {{rows.length}} lines (only first 5 displayed)
+            </clr-dg-footer>
+        </clr-datagrid>
+
+        <div class="checkbox">
+            <input type="checkbox" id="firstRowIsHeader" [(ngModel)]="firstRowIsHeader" />
+            <label for="firstRowIsHeader">First row is header</label>
+        </div>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page>Content for step 3</clr-wizard-page>
+</clr-wizard>

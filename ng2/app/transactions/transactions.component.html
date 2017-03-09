@@ -2,8 +2,8 @@
 
 <div class="table-buttons">
     <button type="button" class="btn btn-link" (click)="add();">Add new</button>
-    <button type="button" class="btn btn-link" (click)="export();">Export</button>
-    <button type="button" class="btn btn-link" disabled>Import</button>
+    <button type="button" class="btn btn-link" (click)="export();" disabled>Export</button>
+    <button type="button" class="btn btn-link" (click)="import();">Import</button>
     <button type="button" class="btn btn-link" (click)="searchBox.visible = !searchBox.visible">Search</button>
     <search-box #searchBox (update)="term = $event"></search-box>
 </div>
@@ -38,3 +38,5 @@
 </clr-datagrid>
 
 <transaction></transaction>
+
+<import-component></import-component>

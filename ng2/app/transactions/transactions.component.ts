@@ -6,6 +6,8 @@ import { TransactionComponent } from './transaction.component';
 
 import { Datagrid, DatagridFilter, DatagridColumn, DatagridRow, DATAGRID_DIRECTIVES }  from 'clarity-angular';
 
+import { ImportComponent } from '../import/import.component';
+
 @Component({
   selector: 'transactions',
   templateUrl: './app/transactions/transactions.component.html',
@@ -19,6 +21,8 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
     @ViewChildren(DatagridColumn) columns: QueryList<DatagridColumn>;
     @ViewChild('grid') grid: any;
     @ContentChildren(DatagridColumn) elements: any;
+
+    @ViewChild(ImportComponent) importComponent: ImportComponent;
 
     term: string;
 
@@ -102,5 +106,9 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
                 this.transactions.push(item);
             });
         });
+    }
+
+    import() {
+        this.importComponent.open(this.element);
     }
 }
