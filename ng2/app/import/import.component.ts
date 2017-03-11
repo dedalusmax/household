@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Wizard } from "clarity-angular";
+import { ImportSchema, ImportField, Match } from './import-schema';
 
 @Component({
   selector: 'import-component',
@@ -7,6 +8,9 @@ import { Wizard } from "clarity-angular";
   styles: [`
   .highlighted {
       background-color: lightsteelblue;
+  }
+  .required {
+      font-weight: bold;
   }
   `],
   providers: []
@@ -22,7 +26,11 @@ export class ImportComponent {
     rows: Array<any> = [];
     firstRowIsHeader: boolean = true;
 
-    open(source: ElementRef) {
+    schema: ImportSchema;
+    matches: Array<Match> = [];
+
+    open(schema: ImportSchema) {
+        this.schema = schema;
         this.opened = true;
     }
 
@@ -62,9 +70,46 @@ export class ImportComponent {
                 this.rows.push(row);
             }
         }
+    }
 
-        // lines.forEach((line, index) => {
-        //     this.rows.push(line.split(';'));
-        // });
+    private assignableFields: Array<ImportField> = [];
+    private requiredFieldsAssigned: boolean = false;
+
+    onMatchRecords() {
+
+        this.matches = [];
+
+        this.rows[0].forEach((column: string, index: number) => {
+            this.matches.push(new Match(column, index));
+        });
+
+        this.assignableFields = this.schema.fields.slice(0);
+
+    }
+
+    select(match: Match) {
+        // [checked]="match.selected" (change)="select(match)"
+        match.selected = true;
+    }
+
+    calculateAssigning() {
+        this.requiredFieldsAssigned = !(this.assignableFields.find((item) => item.required === true))
+    }
+
+    assign(match: Match, assignee: ImportField) {
+        console.log(match);
+        console.log(assignee);
+
+        match.schemaField = assignee;
+        this.assignableFields.splice(this.assignableFields.indexOf(assignee), 1);
+        this.calculateAssigning();
+    }
+
+    unassign(match: Match) {
+        console.log(match);
+
+        this.assignableFields.push(match.schemaField);
+        this.calculateAssigning();
+        match.schemaField = null;
     }
 }

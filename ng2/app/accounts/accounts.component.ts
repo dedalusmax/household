@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountsService } from '../shared/services/accounts.service';
 import { Account } from '../shared/model/account';
 import { Currency } from '../shared/model/currency';
+
+import { ImportComponent } from '../import/import.component';
+import { ImportSchema, ImportField } from '../import/import-schema';
 
 class AccountType {
     constructor(public type: string, public name: string) {}
@@ -31,6 +34,8 @@ export class AccountsComponent implements OnInit {
     accountType: AccountType;
     currencies: Currency[] = [];
     currency: Currency;
+
+    @ViewChild(ImportComponent) importComponent: ImportComponent;
 
     constructor(private router: Router, private accountsService: AccountsService) {}
 
@@ -111,5 +116,26 @@ export class AccountsComponent implements OnInit {
         error => {
             this.error = 'Account cannot be added: ' + error.message;
         });
+    }
+
+    import() {
+
+        let schema = new ImportSchema('tran');
+
+        let name = new ImportField('name', 'Account name');
+        name.required = true;
+
+        let code = new ImportField('code', 'Code');
+        code.required = true;
+
+        let type = new ImportField('type', 'Type');
+        type.required = true;
+     
+        let description = new ImportField('description', 'Description');
+        let currency = new ImportField('currency', 'Currency');
+
+        schema.fields.push(name, code, type, description, currency);
+
+        this.importComponent.open(schema);
     }
 }

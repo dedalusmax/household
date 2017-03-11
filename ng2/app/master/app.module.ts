@@ -31,6 +31,7 @@ import { SearchPipe } from '../shared/pipes/search.pipe';
 import { SearchBoxComponent } from '../shared/components/search-box.component';
 
 import { ImportComponent } from '../import/import.component';
+import { ImportService } from '../import/import.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],

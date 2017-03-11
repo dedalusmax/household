@@ -7,6 +7,7 @@ import { TransactionComponent } from './transaction.component';
 import { Datagrid, DatagridFilter, DatagridColumn, DatagridRow, DATAGRID_DIRECTIVES }  from 'clarity-angular';
 
 import { ImportComponent } from '../import/import.component';
+import { ImportSchema, ImportField } from '../import/import-schema';
 
 @Component({
   selector: 'transactions',
@@ -106,9 +107,5 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
                 this.transactions.push(item);
             });
         });
-    }
-
-    import() {
-        this.importComponent.open(this.element);
     }
 }
