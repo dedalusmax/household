@@ -22,6 +22,7 @@ export class ImportComponent {
 
     fileContents: string;
 
+    lines: Array<any> = [];
     columns: Array<string> = [];
     rows: Array<any> = [];
     firstRowIsHeader: boolean = true;
@@ -54,17 +55,17 @@ export class ImportComponent {
         this.columns = [];
         this.rows = [];
 
-        let lines = this.fileContents.split('\n');
+        this.lines = this.fileContents.split('\n');
 
-        let firstLine = lines[0].split(';');
+        let firstLine = this.lines[0].split(';');
         firstLine.forEach((column, index) => {
             if (column) {
                 this.columns.push((index + 1).toString());
             }
         });
         
-        for (let l: number = 0; l < (5 || lines.length); l++) {
-            let line = lines[l];
+        for (let l: number = 0; l < (5 || this.lines.length); l++) {
+            let line = this.lines[l];
             if (line) {
                 let row = line.split(';').splice(0, this.columns.length);
                 this.rows.push(row);
@@ -79,17 +80,17 @@ export class ImportComponent {
 
         this.matches = [];
 
-        this.rows[0].forEach((column: string, index: number) => {
+        let firstRow = this.firstRowIsHeader ? this.rows[1]: this.rows[0];
+        firstRow.forEach((column: string, index: number) => {
             this.matches.push(new Match(column, index));
         });
 
         this.assignableFields = this.schema.fields.slice(0);
-
     }
 
     select(match: Match) {
         // [checked]="match.selected" (change)="select(match)"
-        match.selected = true;
+        // match.selected = true;
     }
 
     calculateAssigning() {
@@ -111,5 +112,51 @@ export class ImportComponent {
         this.assignableFields.push(match.schemaField);
         this.calculateAssigning();
         match.schemaField = null;
+    }
+
+    validationError: string = null;
+    lineNumber = 0;
+    schemaValid = false;
+
+    onValidateSchema() {
+        
+        this.validationError = null;
+        this.schemaValid = false;
+        this.lineNumber = 0;
+
+        let boundFields = this.matches.filter((match) => match.schemaField);
+
+        for (let l: number = 0; l < this.lines.length; l++) {
+            this.lineNumber = l + 1;
+
+            if (this.lines[l].trim() == '') {
+                continue; // skip empty lines
+            }
+
+            let columns = this.lines[l].split(';');
+            if (columns.length < boundFields[boundFields.length - 1].filePosition) {
+                this.validationError = `Line contains less columns than expected (${columns.length})`;
+                break;
+            }
+
+            for (let f: number = 0; f < boundFields.length; f++) {
+                let field = boundFields[f];
+
+                let value = columns[field.filePosition];
+
+                if (field.schemaField.required && (!value || value.trim() == '')) {
+                    this.validationError = 'Required field is empty in column ' + (field.filePosition + 1);
+                    break;
+                }
+            };
+
+            if (this.validationError) break;
+        };
+
+        this.schemaValid = !this.validationError;
+    }
+
+    onImportData() {
+
     }
 }

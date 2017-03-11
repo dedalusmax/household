@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountsService } from '../shared/services/accounts.service';
 import { Account } from '../shared/model/account';
@@ -36,6 +36,7 @@ export class AccountsComponent implements OnInit {
     currency: Currency;
 
     @ViewChild(ImportComponent) importComponent: ImportComponent;
+    @ViewChild('pr1') progress: any;
 
     constructor(private router: Router, private accountsService: AccountsService) {}
 
@@ -53,7 +54,7 @@ export class AccountsComponent implements OnInit {
         this.currencies.push(new Currency('USD', 'US Dollar ($)'));
         this.currency = this.currencies[0];
 
-        this.loadAccounts();
+        this.loadAccounts();        
     }
 
     loadAccounts() {
@@ -119,6 +120,9 @@ export class AccountsComponent implements OnInit {
     }
 
     import() {
+        let a = this.progress;
+        // this.progress.nativeElement.getElementByTagName('span');
+        return;
 
         let schema = new ImportSchema('tran');
 

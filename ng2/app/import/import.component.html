@@ -1,12 +1,18 @@
 <clr-wizard #wizard [(clrWizardOpen)]="opened" [clrWizardSize]="'lg'">
     <div class="wizard-title">Wizard Title</div>
 
-    <clr-wizard-step>Step 1</clr-wizard-step>
-    <clr-wizard-step>Step 2</clr-wizard-step>
-    <clr-wizard-step>Step 3</clr-wizard-step>
+    <clr-wizard-step>Select file</clr-wizard-step>
+    <clr-wizard-step>Preview file</clr-wizard-step>
+    <clr-wizard-step>Match records</clr-wizard-step>
+    <clr-wizard-step>Schema validation</clr-wizard-step>
+    <clr-wizard-step>Import data</clr-wizard-step>
 
     <clr-wizard-page (clrWizardPageOnCommit)="onPreviewFile()">
         <input type="file" (change)="onFileSelected($event)" />
+
+        <div class="progress labeled">
+            <progress max="6" value="2" data-displayval="0%"></progress>
+        </div>
     </clr-wizard-page>
 
     <clr-wizard-page (clrWizardPageOnCommit)="onMatchRecords()">
@@ -29,7 +35,7 @@
 
     </clr-wizard-page>
 
-    <clr-wizard-page [clrWizardPageNextDisabled]="!requiredFieldsAssigned">
+    <clr-wizard-page [clrWizardPageNextDisabled]="!requiredFieldsAssigned" (clrWizardPageOnCommit)="onValidateSchema()">
 
         <clr-datagrid>
             <clr-dg-column>File column</clr-dg-column>
@@ -70,4 +76,33 @@
         </clr-datagrid>
 
     </clr-wizard-page>
+
+    <clr-wizard-page [clrWizardPageNextDisabled]="!schemaValid" (clrWizardPageOnCommit)="onImportData()">
+
+        Parsing line: {{lineNumber}}/{{lines.length}}
+
+        <clr-alert *ngIf="validationError" [clrAlertType]="'alert-danger'" [clrAlertClosable]="false">
+            <div class="alert-item">
+                <span class="alert-text">
+                    Error in line {{lineNumber}}: {{validationError}}
+                </span>
+            </div>
+        </clr-alert>
+
+        <clr-alert *ngIf="schemaValid" [clrAlertType]="'alert-success'" [clrAlertClosable]="false">
+            <div class="alert-item">
+                <span class="alert-text">
+                    Import file successfully validated against the data schema. You can proceed to import the file into the target data.
+                </span>
+            </div>
+        </clr-alert>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+
+
+
+    </clr-wizard-page>
+
 </clr-wizard>

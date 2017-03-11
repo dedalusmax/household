@@ -17,9 +17,9 @@ export class ImportField {
 export class Match {
     // fileColumn: string;
     // filePosition: number;
-    selected: boolean = false;
+    // selected: boolean = false;
     schemaField: ImportField;
     description: string;
 
-    constructor(public fileColumn: string, filePosition: number) { }
+    constructor(public fileColumn: string, public filePosition: number) { }
 }

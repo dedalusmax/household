@@ -4,6 +4,11 @@
     <button type="button" class="btn btn-link" (click)="import();">Import</button>
 </div>
 
+<div class="progress labeled">
+    <progress #pr1 max="100" value="0" data-displayval="0%"></progress>
+    <span></span>
+</div>
+
 <clr-datagrid [(clrDgSelected)]="selectedAccounts">
     <clr-dg-column>Account name</clr-dg-column>
     <clr-dg-column>Code</clr-dg-column>
