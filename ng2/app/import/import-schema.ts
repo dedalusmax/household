@@ -23,3 +23,4 @@ export class Match {
 
     constructor(public fileColumn: string, public filePosition: number) { }
 }
+

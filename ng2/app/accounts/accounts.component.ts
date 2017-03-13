@@ -36,7 +36,6 @@ export class AccountsComponent implements OnInit {
     currency: Currency;
 
     @ViewChild(ImportComponent) importComponent: ImportComponent;
-    @ViewChild('pr1') progress: any;
 
     constructor(private router: Router, private accountsService: AccountsService) {}
 
@@ -120,9 +119,6 @@ export class AccountsComponent implements OnInit {
     }
 
     import() {
-        let a = this.progress;
-        // this.progress.nativeElement.getElementByTagName('span');
-        return;
 
         let schema = new ImportSchema('tran');
 

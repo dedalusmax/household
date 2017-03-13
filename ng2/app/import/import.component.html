@@ -8,10 +8,10 @@
     <clr-wizard-step>Import data</clr-wizard-step>
 
     <clr-wizard-page (clrWizardPageOnCommit)="onPreviewFile()">
-        <input type="file" (change)="onFileSelected($event)" />
-
-        <div class="progress labeled">
-            <progress max="6" value="2" data-displayval="0%"></progress>
+        <div class="form-group">
+            <input class="hide" #fileUpload type="file" (change)="onFileSelected($event)" />
+            <button type="button" class="btn btn-primary" (click)="chooseFile()">Choose file</button>
+            <span>{{ filename }}</span>
         </div>
     </clr-wizard-page>
 
@@ -62,10 +62,6 @@
                         <button [hidden]="!match.schemaField" type="button" class="btn btn-warning-outline btn-sm" (click)="unassign(match)">Clear</button>
                     </div>
                 </clr-dg-cell>                
-                <!--<clr-dg-cell>
-                    <input type="checkbox" [(ngModel)]="match.selected" />
-                    <span>govno</span>
-                </clr-dg-cell>-->
                 <clr-dg-cell>{{match.schemaField?.caption}}</clr-dg-cell>
                 <clr-dg-cell>{{match.description}}</clr-dg-cell>
             </clr-dg-row>
@@ -101,7 +97,24 @@
 
     <clr-wizard-page>
 
-
+        <h4>Importing file: {{ filename }}</h4>
+        <div class="progress-block">
+            <label>Importing line: {{lineNumber}}/{{lines.length}}</label>
+            <div class="progress-group">
+                <div class="progress-static labeled success">
+                    <div class="progress-meter" data-value="33" data-displayval="12%"></div>
+                    <span>12%</span>
+                </div>
+                <div class="progress-static labeled">
+                    <div class="progress-meter" data-value="23" data-displayval="43%"></div>
+                    <span>43%</span>
+                </div>
+                <div class="progress-static labeled danger">
+                    <div class="progress-meter" data-value="23" data-displayval="34%"></div>
+                    <span>34%</span>
+                </div>
+            </div>
+        </div>
 
     </clr-wizard-page>
 

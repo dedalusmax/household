@@ -1,11 +1,15 @@
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Wizard } from "clarity-angular";
 import { ImportSchema, ImportField, Match } from './import-schema';
+import { ImportService } from './import.service';
 
 @Component({
   selector: 'import-component',
   templateUrl: './app/import/import.component.html',
   styles: [`
+  .hide {
+      display: none;
+  }
   .highlighted {
       background-color: lightsteelblue;
   }
@@ -20,6 +24,9 @@ export class ImportComponent {
     @ViewChild(Wizard) wizard: Wizard;
     opened: boolean = false; // you can open the wizard by setting this variable to true
 
+    @ViewChild('fileUpload') fileUpload: ElementRef;
+
+    filename: string;
     fileContents: string;
 
     lines: Array<any> = [];
@@ -30,20 +37,26 @@ export class ImportComponent {
     schema: ImportSchema;
     matches: Array<Match> = [];
 
+    constructor(private importService: ImportService) { }
+
     open(schema: ImportSchema) {
         this.schema = schema;
         this.opened = true;
+    }
+
+    chooseFile() {
+        this.fileUpload.nativeElement.click();
     }
 
     onFileSelected(result) {
         let me = this;
 
         let file = result.target.files[0];
+        me.filename = file.name;
 
         let reader = new FileReader();
 
         reader.onload = function(event) {
-
             me.fileContents = reader.result;
         };
 
@@ -116,13 +129,15 @@ export class ImportComponent {
 
     validationError: string = null;
     lineNumber = 0;
-    schemaValid = false;
+    schemaValid = false;    
+    records: Array<any>;
 
     onValidateSchema() {
         
         this.validationError = null;
         this.schemaValid = false;
         this.lineNumber = 0;
+        this.records = [];
 
         let boundFields = this.matches.filter((match) => match.schemaField);
 
@@ -151,6 +166,8 @@ export class ImportComponent {
             };
 
             if (this.validationError) break;
+
+            this.records.push(columns);
         };
 
         this.schemaValid = !this.validationError;
@@ -158,5 +175,8 @@ export class ImportComponent {
 
     onImportData() {
 
+        let importingItems = this.importService.itemImported.subscribe();
+
+        this.importService.import(this.records, this.schema);
     }
 }
