@@ -25,7 +25,11 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'clarity-angular': 'node_modules/clarity-angular',
-      'angular2-cookie': 'npm:angular2-cookie'
+      'angular2-cookie': 'npm:angular2-cookie',
+      //'angular-gridster2': 'npm:angular-gridster2/dist/gridster.module.js',
+      'lodash': 'npm:lodash/lodash.js',
+      '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
+      'hammerjs': 'npm:hammerjs/hammer.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -35,7 +39,8 @@
       },
       'rxjs' : { main: 'Rx.js', defaultExtension: 'js' },
       'clarity-angular' : { main: './index.js', defaultExtension: 'js' },
-      'angular2-cookie': { main: './core.js', defaultExtension: 'js' }
+      'angular2-cookie': { main: './core.js', defaultExtension: 'js' },
+      //'angular-gridster2': { main: 'gridster.module.js' }
     }
   });
 })(this);

@@ -8,6 +8,7 @@ import { AccountsService } from '../shared/services/accounts.service';
 @Component({
   selector: 'my-app',
   templateUrl: './app/master/app.component.html',
+  styleUrls: ['./app/master/app.component.css'],
   providers: [AccountsService]
 })
 export class AppComponent implements OnInit { 

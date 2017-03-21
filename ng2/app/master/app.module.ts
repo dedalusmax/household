@@ -8,6 +8,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { ClarityModule }  from 'clarity-angular';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { GridsterModule } from '../gridster/gridster.module';
+
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 import { routing }        from './app.routing';
 import { AuthGuard }      from '../shared/services/auth.guard';
@@ -34,14 +38,22 @@ import { ImportComponent } from '../import/import.component';
 import { ImportService } from '../import/import.service';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, routing, ClarityModule ],
+imports: [ 
+  BrowserModule,  
+  FormsModule, 
+  HttpModule, 
+  routing, 
+  ClarityModule,
+  GridsterModule,
+  MaterialModule
+  ],
   declarations: [ AppComponent, AboutComponent, LoginComponent, RegisterComponent, 
                   ProfileComponent, AccountsComponent, WalletComponent, DashboardComponent,
                   TransactionsComponent, TransactionComponent,
                   TabsComponent, TabComponent, EqualValidator,
                   SearchPipe, SearchBoxComponent, ImportComponent
                    ],
-  providers:    [ AuthService, AuthGuard, CookieService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
+  providers:    [ AuthService, AuthGuard, CookieService, ImportService ], // { provide: LocationStrategy, useClass: HashLocationStrategy }
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
