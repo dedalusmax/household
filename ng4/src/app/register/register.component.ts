@@ -9,15 +9,15 @@ import { Language } from '../shared/models/language';
   selector: 'register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit { 
+export class RegisterComponent implements OnInit {
   model = new Profile();
   showError: boolean;
   error: string;
 
   // choosers:
-  currencies: Currency[] = [];
+  currencies: Array<Currency> = [];
   currency: Currency;
-  languages: Language[] = [];
+  languages: Array<Language> = [];
   language: Language;
 
   constructor(private router: Router, private authService: AuthService) {}
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     //first check whether the profile with that username and password exists
-    this.authService.checkProfile(this.model).subscribe((data) => { 
+    this.authService.checkProfile(this.model).subscribe((data) => {
       if (data && data.id) {
         this.error = 'Username with this password already registered!';
         this.showError = true;
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
         this.model.createdDate = new Date(Date.now());
         this.model.baseCurrency = this.currency.code;
         this.model.language = this.language.code;
-        
+
         this.authService.register(this.model).subscribe((nothing) => {
             this.authService.profile.next(this.model); // inject profile data for subscribers
             this.router.navigate(['/']);

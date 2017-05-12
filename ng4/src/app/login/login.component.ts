@@ -9,7 +9,7 @@ import { CookieService } from '../shared/services/cookie.service';
   selector: 'login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit { 
+export class LoginComponent implements OnInit {
   model = new Profile();
   showError: boolean;
   rememberMe: boolean;

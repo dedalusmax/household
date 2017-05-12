@@ -8,7 +8,7 @@ import { Language } from '../shared/models/language';
   selector: 'profile',
   templateUrl: './profile.component.html'
 })
-export class ProfileComponent implements OnInit { 
+export class ProfileComponent implements OnInit {
   model = new Profile();
   updated = false;
   error: string = null;
@@ -17,9 +17,9 @@ export class ProfileComponent implements OnInit {
   //confirmPassword = '';
 
   // choosers:
-  currencies: Currency[] = [];
+  currencies: Array<Currency> = [];
   currency: Currency;
-  languages: Language[] = [];
+  languages: Array<Language> = [];
   language: Language;
 
   constructor (private authService: AuthService) {}
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
     this.languages.push(new Language('DE', 'Deutsch'));
     this.language = this.languages[0];
 
-    this.authService.getProfile(this.authService.profile.value.id).then((data) => { 
+    this.authService.getProfile(this.authService.profile.value.id).then((data) => {
       this.model = data;
 
       let currency = this.currencies.find((c) => c.code === data.baseCurrency);

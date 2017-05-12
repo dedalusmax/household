@@ -1,0 +1,121 @@
+<clr-wizard #wizard [(clrWizardOpen)]="opened" [clrWizardSize]="'lg'">
+    <div class="wizard-title">Wizard Title</div>
+
+    <clr-wizard-step>Select file</clr-wizard-step>
+    <clr-wizard-step>Preview file</clr-wizard-step>
+    <clr-wizard-step>Match records</clr-wizard-step>
+    <clr-wizard-step>Schema validation</clr-wizard-step>
+    <clr-wizard-step>Import data</clr-wizard-step>
+
+    <clr-wizard-page (clrWizardPageOnCommit)="onPreviewFile()">
+        <div class="form-group">
+            <input class="hide" #fileUpload type="file" (change)="onFileSelected($event)" />
+            <button type="button" class="btn btn-primary" (click)="chooseFile()">Choose file</button>
+            <span>{{ filename }}</span>
+        </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page (clrWizardPageOnCommit)="onMatchRecords()">
+        <clr-datagrid>
+            <clr-dg-column *ngFor="let column of columns">Column {{column}}</clr-dg-column>
+
+            <clr-dg-row *clrDgItems="let row of rows; let i = index" [clrDgItem]="row" [class.highlighted]="firstRowIsHeader && i == 0">
+                <clr-dg-cell *ngFor="let cell of row">{{cell}}</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>
+                {{rows.length}} lines (only first 5 displayed)
+            </clr-dg-footer>
+        </clr-datagrid>
+
+        <div class="checkbox">
+            <input type="checkbox" id="firstRowIsHeader" [(ngModel)]="firstRowIsHeader" />
+            <label for="firstRowIsHeader">First row is header</label>
+        </div>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page [clrWizardPageNextDisabled]="!requiredFieldsAssigned" (clrWizardPageOnCommit)="onValidateSchema()">
+
+        <clr-datagrid>
+            <clr-dg-column>File column</clr-dg-column>
+            <!--<clr-dg-column>Import</clr-dg-column>-->
+            <clr-dg-column>Action</clr-dg-column>
+            <clr-dg-column>Schema field</clr-dg-column>
+            <clr-dg-column>Field description</clr-dg-column>
+
+            <clr-dg-row *clrDgItems="let match of matches" [clrDgItem]="match">
+                <clr-dg-cell>{{match.fileColumn}}</clr-dg-cell>
+                <clr-dg-cell>
+                    <div>
+                        <clr-dropdown [hidden]="match.schemaField || assignableFields.length == 0" [clrMenuPosition]="'bottom-right'">
+                            <button class="btn btn-outline-primary btn-sm" clrDropdownToggle>
+                                Match 
+                                <clr-icon shape="caret down"></clr-icon>
+                            </button>
+                            <div class="dropdown-menu">
+                                <label class="dropdown-header">Unassigned fields</label>
+                                <a *ngFor="let assignee of assignableFields" clrDropdownItem 
+                                    (click)="assign(match, assignee)" [class.required]="assignee.required">{{assignee.caption}}</a>
+                            </div>
+                        </clr-dropdown>
+                        <button [hidden]="!match.schemaField" type="button" class="btn btn-warning-outline btn-sm" (click)="unassign(match)">Clear</button>
+                    </div>
+                </clr-dg-cell>                
+                <clr-dg-cell>{{match.schemaField?.caption}}</clr-dg-cell>
+                <clr-dg-cell>{{match.description}}</clr-dg-cell>
+            </clr-dg-row>
+
+            <clr-dg-footer>
+                {{matches.length}} columns (2 required fields rest to match)
+            </clr-dg-footer>
+        </clr-datagrid>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page [clrWizardPageNextDisabled]="!schemaValid" (clrWizardPageOnCommit)="onImportData()">
+
+        Parsing line: {{lineNumber}}/{{lines.length}}
+
+        <clr-alert *ngIf="validationError" [clrAlertType]="'alert-danger'" [clrAlertClosable]="false">
+            <div class="alert-item">
+                <span class="alert-text">
+                    Error in line {{lineNumber}}: {{validationError}}
+                </span>
+            </div>
+        </clr-alert>
+
+        <clr-alert *ngIf="schemaValid" [clrAlertType]="'alert-success'" [clrAlertClosable]="false">
+            <div class="alert-item">
+                <span class="alert-text">
+                    Import file successfully validated against the data schema. You can proceed to import the file into the target data.
+                </span>
+            </div>
+        </clr-alert>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+
+        <h4>Importing file: {{ filename }}</h4>
+        <div class="progress-block">
+            <label>Importing line: {{lineNumber}}/{{lines.length}}</label>
+            <div class="progress-group">
+                <div class="progress-static labeled success">
+                    <div class="progress-meter" data-value="33" data-displayval="12%"></div>
+                    <span>12%</span>
+                </div>
+                <div class="progress-static labeled">
+                    <div class="progress-meter" data-value="23" data-displayval="43%"></div>
+                    <span>43%</span>
+                </div>
+                <div class="progress-static labeled danger">
+                    <div class="progress-meter" data-value="23" data-displayval="34%"></div>
+                    <span>34%</span>
+                </div>
+            </div>
+        </div>
+
+    </clr-wizard-page>
+
+</clr-wizard>

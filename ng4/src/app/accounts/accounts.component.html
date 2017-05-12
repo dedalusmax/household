@@ -1,5 +1,9 @@
 <label>List of accounts</label>
 
+<div class="table-buttons">
+    <button type="button" class="btn btn-link" (click)="import();">Import</button>
+</div>
+
 <clr-datagrid [(clrDgSelected)]="selectedAccounts">
     <clr-dg-column>Account name</clr-dg-column>
     <clr-dg-column>Code</clr-dg-column>
@@ -109,3 +113,5 @@
         </span>
     </div>
 </clr-alert>
+
+<import-component></import-component>

@@ -7,14 +7,12 @@ import { AppSettings } from '../models/app-settings';
 @Injectable()
 export class AccountsService extends HttpService {
 
-    private apiPath: string;
-
-    constructor(private appSetting: AppSettings, http: Http) { 
-        super(appSetting.apiEndpoint + 'accounts', http); 
+    constructor(private appSetting: AppSettings, http: Http) {
+        super(appSetting.apiEndpoint + 'accounts', http);
     }
 
     getAccounts() {
-        return this.getJson<Account[]>(null, null, 'get');
+        return this.getJson<Array<Account>>(null, null, 'get');
     }
 
     addAccount(account: Account) {

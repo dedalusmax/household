@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { AppSettings } from '../models/app-settings';
 
@@ -11,7 +10,7 @@ export class ConfigService {
     }
 
     load() {
-        var promise = this.http.get('app.config.json').map(res => res.json()).toPromise();
+        let promise = this.http.get('app.config.json').map(res => res.json()).toPromise();
         promise.then(data => this.config = data);
         return promise;
     }

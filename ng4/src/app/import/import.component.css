@@ -1,0 +1,9 @@
+  .hide {
+      display: none;
+  }
+  .highlighted {
+      background-color: lightsteelblue;
+  }
+  .required {
+      font-weight: bold;
+  }

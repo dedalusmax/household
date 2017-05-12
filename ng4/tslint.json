@@ -17,7 +17,7 @@
       "variable-declaration", // checks non-binding variable declarations
       "member-variable-declaration" // checks member variable declarations
     ],
-    "no-magic-numbers": true, // Disallows the use constant number values outside of variable assignments, magic number is a direct usage of a number in the code, amount: 36
+    "no-magic-numbers": false, // Disallows the use constant number values outside of variable assignments, magic number is a direct usage of a number in the code, amount: 36
     "member-ordering": [ // Enforces member ordering;  classes are easier to read, navigate, and edit, amount:240
       false,
       {
@@ -40,7 +40,7 @@
     "switch-default": true, // Require a default case in all switch statements, amount: 0
     "eofline": true, // It is a standard convention to end files with a newline, amount: 39
     "max-classes-per-file": [
-      true,
+      false,
       1 // file may not contain more than the specified number of classes, amount: 8
     ],
     "indent": [
@@ -105,7 +105,7 @@
     "no-reference": true, // Disallows /// <reference path=> imports (use ES6-style imports instead), amount: 0
     "no-var-requires": true, // use of forms such as var module = require("module") are banned, use ES6 style imports or import foo = require('foo') imports , amount:2
     "only-arrow-functions": [ // Disallows traditional (non-arrow) function expressions, amount: 35
-      true, //use const squares = arr.map(x => x * x); don't use: const squares = arr.map(function (x) { return x * x });
+      false, //use const squares = arr.map(x => x * x); don't use: const squares = arr.map(function (x) { return x * x });
       "allow-declarations",
       "allow-named-functions" // allows the expression function foo() {} but not function() {}
     ],
@@ -183,7 +183,7 @@
     "no-require-imports": true, // Disallows invocation of require(), amount: 2
     "object-literal-sort-keys": false, // Requires keys in object literals to be sorted alphabetically amount:43
     "trailing-comma": [ // Requires or disallows trailing commas in array and object literals, amount: 113
-      true,
+      false,
       {
         "multiline": "always",
         "singleline": "never"
@@ -230,7 +230,7 @@
       false,
       "as-needed" // or always, consistent
     ],
-    "object-literal-shorthand": true, // Enforces use of ES6 object literal shorthand when possible, amount: 3
+    "object-literal-shorthand": false, // Enforces use of ES6 object literal shorthand when possible, amount: 3
     "one-variable-per-declaration": [ // Disallows multiple variable definitions in the same declaration statement, amount: 3
       true,
       "ignore-for-loop"

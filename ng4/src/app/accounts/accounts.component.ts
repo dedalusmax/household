@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountsService } from '../shared/services/accounts.service';
 import { Account } from '../shared/models/account';
 import { Currency } from '../shared/models/currency';
+
+import { ImportComponent } from '../import/import.component';
+import { ImportSchema, ImportField } from '../import/import-schema';
 
 class AccountType {
     constructor(public type: string, public name: string) {}
@@ -11,14 +14,10 @@ class AccountType {
 @Component({
   selector: 'register',
   templateUrl: './accounts.component.html',
-  styles: [`
-    .number {
-      text-align: right;
-    }
-  `],
+  styleUrls: ['./accounts.component.css'],
   providers: [AccountsService]
 })
-export class AccountsComponent implements OnInit { 
+export class AccountsComponent implements OnInit {
 
     accounts: Array<Account> = [];
 
@@ -31,10 +30,12 @@ export class AccountsComponent implements OnInit {
     error: string = null;
 
     // choosers:
-    accountTypes: AccountType[] = [];
+    accountTypes: Array<AccountType> = [];
     accountType: AccountType;
-    currencies: Currency[] = [];
+    currencies: Array<Currency> = [];
     currency: Currency;
+
+    @ViewChild(ImportComponent) importComponent: ImportComponent;
 
     constructor(private router: Router, private accountsService: AccountsService) {}
 
@@ -89,7 +90,7 @@ export class AccountsComponent implements OnInit {
             this.deleted = true;
             this.selectedAccounts = [];
             setTimeout(() => {
-                this.deleted = false;                
+                this.deleted = false;
                 this.loadAccounts();
             }, 2000);
         }
@@ -99,7 +100,7 @@ export class AccountsComponent implements OnInit {
         this.added = false;
         this.model.currency = this.currency.code;
         this.model.type = this.accountType.type;
-        
+
         this.accountsService.addAccount(this.model).subscribe(() => {
             this.added = true;
 
@@ -108,12 +109,33 @@ export class AccountsComponent implements OnInit {
 
             setTimeout(() => this.added = false, 3000);
             // clear the data and refresh the list
-            this.model = new Account(); 
+            this.model = new Account();
             this.initialBalance = 0.00;
             this.loadAccounts();
         },
         error => {
             this.error = 'Account cannot be added: ' + error.message;
         });
+    }
+
+    import() {
+
+        let schema = new ImportSchema('tran');
+
+        let name = new ImportField('name', 'Account name');
+        name.required = true;
+
+        let code = new ImportField('code', 'Code');
+        code.required = true;
+
+        let type = new ImportField('type', 'Type');
+        type.required = true;
+
+        let description = new ImportField('description', 'Description');
+        let currency = new ImportField('currency', 'Currency');
+
+        schema.fields.push(name, code, type, description, currency);
+
+        this.importComponent.open(schema);
     }
 }

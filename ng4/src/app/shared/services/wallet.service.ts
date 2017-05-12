@@ -9,7 +9,7 @@ export class WalletService extends HttpService {
     constructor(http: Http) { super('wallet', http); }
 
     getWallet() {
-        return this.getJson<Wallet[]>(null, null, 'get');
+        return this.getJson<Array<Wallet>>(null, null, 'get');
     }
 
     storeWallet(wallet: Wallet) {

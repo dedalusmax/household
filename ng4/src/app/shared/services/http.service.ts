@@ -48,7 +48,7 @@ export abstract class HttpService {
         return url;
     }
 
-    //#endregion 
+    //#endregion
 
     //#region JSON working methods
 
@@ -90,5 +90,5 @@ export abstract class HttpService {
         return this.http.delete(url, options).map(this.extractData);
     };
 
-    //#endregion 
+    //#endregion
 }

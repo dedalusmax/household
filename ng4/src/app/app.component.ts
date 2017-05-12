@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart, Event } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { CookieService } from './shared/services/cookie.service';
 import { Profile } from './shared/models/profile';
@@ -10,7 +10,7 @@ import { AccountsService } from './shared/services/accounts.service';
   templateUrl: './app.component.html',
   providers: [AccountsService]
 })
-export class AppComponent implements OnInit { 
+export class AppComponent implements OnInit {
   currentUser: string;
   loggedIn = false;
   noAccounts: boolean;
@@ -49,14 +49,14 @@ export class AppComponent implements OnInit {
           this.loggedIn = true;
 
           // search for the accounts
-          this.accountsService.getAccounts().then((data) => {
-            this.noAccounts = data.length == 0;
+          this.accountsService.getAccounts().then((result) => {
+            this.noAccounts = (result.length == 0);
           });
 
         } else {
           this.currentUser = 'Not logged in';
           this.loggedIn = false;
-        } 
+        }
       }
     );
   }

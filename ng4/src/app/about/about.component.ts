@@ -14,6 +14,6 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class AboutComponent { 
+export class AboutComponent {
 
 }

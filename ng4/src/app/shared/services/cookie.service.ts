@@ -10,8 +10,6 @@ export class CookieService {
         document.cookie = val;
     }
 
-    constructor() { }
-
     get(key: string): string {
         return (<any>this._cookieReader())[key];
     }
@@ -24,12 +22,17 @@ export class CookieService {
         this._cookieWriter()(key, undefined);
     }
 
-    private _cookieReader(): Object {
+    private _cookieReader(): any {
         let lastCookies = {};
         let lastCookieString = '';
         let that = this;
 
-        let cookieArray: string[], cookie: string, i: number, index: number, name: string;
+        let cookieArray: Array<string>;
+        let cookie: string;
+        let i: number;
+        let index: number;
+        let name: string;
+
         let currentCookieString = this.cookieString;
         if (currentCookieString !== lastCookieString) {
             lastCookieString = currentCookieString;
