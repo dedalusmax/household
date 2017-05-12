@@ -1,0 +1,117 @@
+<label>List of accounts</label>
+
+<div class="table-buttons">
+    <button type="button" class="btn btn-link" (click)="import();">Import</button>
+</div>
+
+<clr-datagrid [(clrDgSelected)]="selectedAccounts">
+    <clr-dg-column>Account name</clr-dg-column>
+    <clr-dg-column>Code</clr-dg-column>
+    <clr-dg-column>Type</clr-dg-column>
+    <clr-dg-column>Description</clr-dg-column>
+    <clr-dg-column>Currency</clr-dg-column>
+    <clr-dg-column>Current Balance</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let account of accounts" [clrDgItem]="account">
+        <clr-dg-cell>{{account.name}}</clr-dg-cell>
+        <clr-dg-cell>{{account.code}}</clr-dg-cell>
+        <clr-dg-cell>{{account.type}}</clr-dg-cell>
+        <clr-dg-cell>{{account.description}}</clr-dg-cell>
+        <clr-dg-cell>{{account.currency}}</clr-dg-cell>
+        <clr-dg-cell class="number">{{account.balance}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+        <button type="submit" class="btn btn-danger btn-sm" [disabled]="selectedAccounts.length == 0" 
+            (click)="deleteAccounts()">Delete accounts</button>
+        {{accounts.length}} account(s)
+    </clr-dg-footer>
+</clr-datagrid>
+
+<clr-alert *ngIf="deleted" [clrAlertType]="'alert-info'">
+    <div class="alert-item">
+        <span class="alert-text">
+            Selected account(s) have been deleted successfully.
+        </span>
+    </div>
+</clr-alert>
+
+<form (ngSubmit)="f.form.valid && add()" #f="ngForm" novalidate class="compact">
+    <section class="form-block">
+        <label>New Account</label>
+        <div class="form-group row">
+            <div class="col-lg-2">
+                <label for="aForm_1">Account name</label>
+            </div>
+            <div class="col-lg-3">
+                <label for="name" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="name.invalid && name.dirty">
+                    <input class="form-control" type="text" placeholder="Enter account name" size="30" [(ngModel)]="model.name" name="name" #name="ngModel" required>
+                    <span class="tooltip-content">Account name cannot be empty!</span>
+                </label>                
+            </div>
+            <div class="col-lg-1">
+                <label for="aForm_1">Code</label>
+            </div>
+            <div class="col-lg-2">
+                <label for="code" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="code.invalid && code.dirty">
+                    <input class="form-control" type="text" placeholder="Few letters" size="10" [(ngModel)]="model.code" name="code" #code="ngModel" required>
+                    <span class="tooltip-content">Account code cannot be empty!</span>
+                </label>                  
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2">
+                <label for="aForm_3">Type</label>
+            </div>
+            <div class="col-lg-3">
+                <div class="select">
+                    <select id="aForm_3" [(ngModel)]="accountType" name="accountType">
+                        <option *ngFor="let t of accountTypes" [ngValue]="t">{{t.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <label for="aForm_3">Currency</label>
+            </div>
+            <div class="col-lg-2">
+                <div class="select">
+                    <select id="aForm_3" [(ngModel)]="currency" name="currency">
+                        <option *ngFor="let c of currencies" [ngValue]="c">{{c.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2">
+                <label for="aForm_2">Initial balance</label>
+            </div>
+            <div class="col-lg-2">
+                <label for="code" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="balance.invalid && balance.dirty">
+                    <input class="form-control" type="number" placeholder="Enter amount" size="15" [(ngModel)]="initialBalance" name="initialBalance" #balance="ngModel" required>
+                    <span class="tooltip-content">Initial balance cannot be empty!</span>
+                </label>  
+            </div>
+            <div class="col-lg-1">
+                <span>{{currency.code}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-2">
+                <label for="aForm_4">Description</label>
+            </div>
+            <div class="col-lg-10">
+                <textarea class="form-control" id="aForm_4" placeholder="Put some information about this account here" [(ngModel)]="model.description" name="code" rows="2"></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Add</button>
+    </section>
+</form>
+<clr-alert *ngIf="added" [clrAlertType]="'alert-info'">
+    <div class="alert-item">
+        <span class="alert-text">
+            The account has been added successfully. A new transaction will be created with the starting balance indicated.
+        </span>
+    </div>
+</clr-alert>
+
+<import-component></import-component>

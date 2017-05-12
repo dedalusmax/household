@@ -1,0 +1,37 @@
+<clr-modal [(clrModalOpen)]="opened">
+    <h3 class="modal-title">{{title}}</h3>
+    <div class="modal-body">
+
+        <form #employeeForm="ngForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
+            <div class="form-group">
+                <label for="costCenter">Cost Center</label>
+                <label for="costCenter" aria-haspopup="true" role="tooltip" 
+                    class="tooltip tooltip-validation tooltip-md"
+                    [class.invalid]="costCenter.invalid && (costCenter.dirty || costCenter.touched)">
+                    <input type="text" id="costCenter" placeholder="Enter cost center"
+                        required name="costCenter" [(ngModel)]="model.costCenter" #costCenter="ngModel">
+                    <span class="tooltip-content">Cost center is Required.</span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <div class="select">
+                    <select id="category" name="category" [(ngModel)]="model.category">
+                        <option value="Default">Select Category...</option>
+                        <option *ngFor="let c of categories" [value]="c">{{c}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="category" placeholder="Enter description"
+                    name="description" [(ngModel)]="model.description" #description="ngModel">
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="opened = false">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="employeeForm.form.invalid" (click)="opened = false">Ok</button>
+    </div>
+</clr-modal>

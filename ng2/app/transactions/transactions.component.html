@@ -1,0 +1,42 @@
+<label>Transactions</label>
+
+<div class="table-buttons">
+    <button type="button" class="btn btn-link" (click)="add();">Add new</button>
+    <button type="button" class="btn btn-link" (click)="export();" disabled>Export</button>
+    <button type="button" class="btn btn-link" (click)="import();">Import</button>
+    <button type="button" class="btn btn-link" (click)="searchBox.visible = !searchBox.visible">Search</button>
+    <search-box #searchBox (update)="term = $event"></search-box>
+</div>
+
+<clr-datagrid #grid>
+    <clr-dg-column>Date</clr-dg-column>
+    <clr-dg-column>Cost Center</clr-dg-column>
+    <clr-dg-column>Category</clr-dg-column>
+    <clr-dg-column>Description</clr-dg-column>
+    <clr-dg-column>Amount</clr-dg-column>
+    <clr-dg-column>Account</clr-dg-column>
+    <clr-dg-column>Transferred to</clr-dg-column>
+    <clr-dg-column class="item-actions no-export">Actions</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let transaction of transactions | search: term" [clrDgItem]="transaction">
+        <clr-dg-cell>{{transaction.date | date:'dd.MM.yyyy'}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.costCenter}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.category}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.description}}</clr-dg-cell>
+        <clr-dg-cell class="number">{{transaction.amount}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.account}}</clr-dg-cell>
+        <clr-dg-cell>{{transaction.transfer}}</clr-dg-cell>
+        <clr-dg-cell class="no-export">
+            <button type="submit" class="btn btn-outline btn-sm" (click)="edit(transaction)">Edit</button>
+            <button type="submit" class="btn btn-warning-outline btn-sm" (click)="delete(transaction)">Delete</button>
+        </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+        {{transactions.length}} transaction(s)
+    </clr-dg-footer>
+</clr-datagrid>
+
+<transaction></transaction>
+
+<import-component></import-component>
