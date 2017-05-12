@@ -1,0 +1,74 @@
+<div class="main-container">
+
+    <clr-alert *ngIf="!loggedIn" [clrAlertType]="'alert-warning'" [clrAlertAppLevel]="true">
+        <div class="alert-item">
+            <span class="alert-text">
+                Please log in or register. For the application usage you must be logged in.
+            </span>
+            <div class="alert-actions">
+                <a routerLink="/login" class="btn alert-action">Log In</a>
+                <a routerLink="/register" class="btn alert-action">Register</a>
+            </div>
+        </div> 
+    </clr-alert>
+    
+    <clr-alert *ngIf="loggedIn && noAccounts" [clrAlertType]="'alert-info'" [clrAlertAppLevel]="true" [clrAlertClosable]="true">
+        <div class="alert-item">
+            <span class="alert-text">
+                You don't have any accounts configured. You won't be able to enter transactions without them.
+            </span>
+            <div class="alert-actions">
+                <a routerLink="/accounts" class="btn alert-action">Configure My Accounts</a>
+            </div>
+        </div>
+    </clr-alert>
+
+    <header class="header header-1">
+        <div class="branding">
+            <a href="/" class="nav-link">
+                <clr-icon shape="home"></clr-icon>
+                <span class="title">Household</span>
+            </a>
+        </div>
+        <div *ngIf="loggedIn" class="header-nav">
+              <a routerLink="/dashboard" class="nav-link" routerLinkActive="active"><span class="nav-text">Dashboard</span></a>
+              <a routerLink="/transactions" class="nav-link" routerLinkActive="active"><span class="nav-text">Transactions</span></a>
+              <a routerLink="/reports" class="nav-link" routerLinkActive="active"><span class="nav-text">Reports</span></a>
+              <a routerLink="/profile" class="nav-link" routerLinkActive="active"><span class="nav-text">Profile Management</span></a>
+          </div>
+          <div class="header-actions">
+              <span class="nav-link nav-text">
+                  {{ currentUser }}
+              </span>
+              <clr-dropdown class="dropdown bottom-right">
+                  <button class="nav-icon" clrDropdownToggle>
+                      <clr-icon shape="user"></clr-icon>
+                      <clr-icon shape="caret"></clr-icon>
+                  </button>
+                  <div class="dropdown-menu">
+                      <a routerLink="/about" clrDropdownItem>About</a>
+                      <a *ngIf="!loggedIn" routerLink="/login" clrDropdownItem>Login</a>
+                      <a *ngIf="loggedIn" routerLink="/login" clrDropdownItem>Log out</a>
+                  </div>
+              </clr-dropdown>
+          </div>
+    </header>
+    <nav *ngIf="loggedIn" class="subnav">
+        <ul *ngIf="location == '/profile' || location == '/accounts' || location == '/wallet'" class="nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/profile" routerLinkActive="active">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/accounts" routerLinkActive="active">Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/wallet" routerLinkActive="active">Wallet</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="content-container">
+        <div class="content-area">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

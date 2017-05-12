@@ -1,0 +1,81 @@
+<form (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+    <section class="form-block">
+
+        <label>Register new account</label>
+
+        <div class="form-group">
+            <label for="txtDisplayName" class="required">Your name</label>
+            <label for="txtDisplayName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="displayName.invalid && displayName.dirty">
+            <input type="text" id="txtDisplayName" class="form-control" placeholder="Enter your name" size="30" [(ngModel)]="model.displayName" name="displayName" #displayName="ngModel" required>
+            <span class="tooltip-content">Display name cannot be empty!</span>
+        </label>
+        </div>
+
+        <div class="form-group">
+            <label for="txtEmail" class="required">Email address</label>
+            <label for="txtEmail" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="email.invalid && email.dirty">
+            <input type="email" id="txtEmail" class="form-control" placeholder="Enter your email address" size="45" [(ngModel)]="model.email" name="email" #email="ngModel" required pattern="^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$">
+            <span class="tooltip-content">Email address is not valid!</span>
+        </label>
+        </div>
+
+        <div class="form-group">
+            <label for="txtUsername" class="required">Username</label>
+            <label for="txtUsername" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="username.invalid && username.dirty">
+                <input id="txtUsername" class="form-control" type="text" placeholder="Enter a unique username" size="30" [(ngModel)]="model.username" name="username" #username="ngModel" required minlength="5" maxlength="12">
+                <span class="tooltip-content">Username is required (between 5 and 12 characters)!</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="txtPassword" class="required">Password</label>
+            <label for="txtPassword" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="!password.valid && !password.pristine">
+                <input id="txtPassword" class="form-control" type="password" placeholder="Enter your password" size="30" [(ngModel)]="model.password" name="password" #password="ngModel" required>
+                <span class="tooltip-content">Password cannot be empty!</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="txtPassword2" class="required">Retype password</label>
+            <label for="txtPassword2" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="!confirmPassword.valid && !confirmPassword.pristine">
+                <input id="txtPassword2" class="form-control" type="password" placeholder="Type password once again" size="30" [(ngModel)]="model.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" required validateEqual="password">
+                <span class="tooltip-content">Password mismatch!</span>
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="aForm_3">Base currency</label>
+            <div class="select">
+                <select id="aForm_3" [(ngModel)]="currency" name="currency">
+                    <option *ngFor="let c of currencies" [ngValue]="c">{{c.name}}</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="aForm_4">Language</label>
+            <div class="select">
+                <select id="aForm_4" [(ngModel)]="language" name="language">
+                    <option *ngFor="let l of languages" [ngValue]="l">{{l.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="aForm_5">Connected accounts</label>
+            <div class="toggle-switch">
+                <input type="checkbox" id="othertoggle">
+                <label for="othertoggle">Sync</label>
+            </div>
+        </div>
+
+        <div *ngIf="showError" class="alert alert-danger">
+            <div class="alert-item">
+                <span class="alert-text">{{ error }}</span>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Register</button>
+
+    </section>
+</form>
